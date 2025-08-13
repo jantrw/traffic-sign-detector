@@ -4,8 +4,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 # Konfig
-RAW_DATA_PATH = "C:/Users/janferech/PycharmProjects/traffic-sign-detector/data/raw/gtsrb"
-PROCESSED_DATA_PATH = "C:/Users/janferech/PycharmProjects/traffic-sign-detector/data/processed"
+RAW_DATA_PATH = "C:/URPATH"
+PROCESSED_DATA_PATH = "C:/URPATH"
 
 TRAIN_CSV_PATH = os.path.join(RAW_DATA_PATH, "Train.csv")
 TEST_CSV_PATH = os.path.join(RAW_DATA_PATH, "Test.csv")
