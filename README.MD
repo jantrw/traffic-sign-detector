@@ -32,4 +32,8 @@ Official dataset page: [https://benchmark.ini.rub.de/gtsrb\_dataset.html](https:
    ```
 5. Result: `data/processed/gtsrb/train|val|test/<class_id>/...` with the copied images. The script checks whether destination files already exist and will not copy files twice.
 
-### Missing steps for a YOLOv8-ready dataset
+## Current training pictures
+
+### Epoche 2
+
+![epoche2-training-picture](runs\detect\train2\train_batch2.jpg)
