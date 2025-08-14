@@ -36,4 +36,4 @@ Official dataset page: [https://benchmark.ini.rub.de/gtsrb\_dataset.html](https:
 
 ### Epoche 2
 
-![epoche2-training-picture](runs\detect\train2\train_batch2.jpg)
+![epoche2-training-picture](runs/detect/train2/train_batch2.jpg)
