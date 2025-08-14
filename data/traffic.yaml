@@ -1,5 +1,5 @@
-train: data/train/images
-val:   data/val/images
+train: train/images
+val:   val/images
 names:
   0: class_0
   1: class_1
