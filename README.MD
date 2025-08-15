@@ -25,28 +25,3 @@ Official dataset page: [https://benchmark.ini.rub.de/gtsrb\_dataset.html](https:
 | 7     | 4007.29| 0.49096        | 0.69229        | 0.97135        | 0.92937             | 0.97216          | 0.95875          | 0.91853            | 0.32491      | 0.20884      | 0.83627     | 0.008812   | 0.008812   | 0.008812   |
 | 8     | 4614.46| 0.47109        | 0.66669        | 0.9659         | 0.94357             | 0.98032          | 0.97031          | 0.93168            | 0.32484      | 0.18687      | 0.83042     | 0.008614   | 0.008614   | 0.008614   |
 
-
-## How to prepare the dataset
-
-> Note: The repository already contains a script `src/prepare_dataset.py` that reads CSV annotation files and copies images into a structured folder hierarchy under `data/processed/gtsrb/{train,val,test}/{class_id}/...`.
-
-### Steps to run the existing preparation script
-
-1. Place the raw dataset under `data/raw/gtsrb/` (for example, as downloaded from the official benchmark).
-2. Make sure `Train.csv` and `Test.csv` are available in `data/raw/gtsrb/`.
-3. Run the script:
-
-   ```bash
-   python src/prepare_dataset.py
-   ```
-4. Example console output produced by the script (local run):
-
-   ```text
-   Verarbeite Trainingsdaten...
-   Trainingsdaten verarbeitet: 31367 Bilder in 'train', 7842 in 'val'
-   Verarbeite Testdaten...
-   Testdaten verarbeitet: 12630 Bilder in 'test'
-
-   Datenverarbeitung abgeschlossen
-   ```
-5. Result: `data/processed/gtsrb/train|val|test/<class_id>/...` with the copied images. The script checks whether destination files already exist and will not copy files twice.
