@@ -1,6 +1,6 @@
 # Traffic Sign Detector
 
-A computer-vision project for detecting and classifying traffic signs (bounding boxes + class labels). The repository includes dataset preparation, training and evaluation scripts and (possibly) a small demo for running inference on uploaded images.
+A computer-vision project for detecting and classifying traffic signs (bounding boxes + class labels). The repository includes training and evaluation scripts and (possibly) a small demo for running inference on uploaded images.
 
 ## Dataset
 
