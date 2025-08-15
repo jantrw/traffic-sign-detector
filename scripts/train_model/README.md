@@ -55,14 +55,6 @@ Recommendations:
 - You can resume training from last checkpoint using resume=True
 
 Directory structure example (after training):
-<br><traffic-sign-detector>/<br>
-  data/<br>
-    traffic.yaml<br>
-  scripts/<br>
-    train_model/<br>
-        train.ps1<br>
-  runs/        (generated logs, plots, TensorBoard data)<br>
-  README.md<br>
 
 License:
 MIT License
