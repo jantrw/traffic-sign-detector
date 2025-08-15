@@ -1,46 +1,46 @@
 train: train/images
 val:   val/images
 names:
-  0: class_0
-  1: class_1
-  2: class_2
-  3: class_3
-  4: class_4
-  5: class_5
-  6: class_6
-  7: class_7
-  8: class_8
-  9: class_9
-  10: class_10
-  11: class_11
-  12: class_12
-  13: class_13
-  14: class_14
-  15: class_15
-  16: class_16
-  17: class_17
-  18: class_18
-  19: class_19
-  20: class_20
-  21: class_21
-  22: class_22
-  23: class_23
-  24: class_24
-  25: class_25
-  26: class_26
-  27: class_27
-  28: class_28
-  29: class_29
-  30: class_30
-  31: class_31
-  32: class_32
-  33: class_33
-  34: class_34
-  35: class_35
-  36: class_36
-  37: class_37
-  38: class_38
-  39: class_39
-  40: class_40
-  41: class_41
-  42: class_42
+  0:  "Geschwindigkeitsbegrenzung (20 km/h)"
+  1:  "Geschwindigkeitsbegrenzung (30 km/h)"
+  2:  "Geschwindigkeitsbegrenzung (50 km/h)"
+  3:  "Geschwindigkeitsbegrenzung (60 km/h)"
+  4:  "Geschwindigkeitsbegrenzung (70 km/h)"
+  5:  "Geschwindigkeitsbegrenzung (80 km/h)"
+  6:  "Ende der Geschwindigkeitsbegrenzung"
+  7:  "Geschwindigkeitsbegrenzung (100 km/h)"
+  8:  "Geschwindigkeitsbegrenzung (120 km/h)"
+  9:  "Überholverbot"
+  10: "Überholverbot für Fahrzeuge über 3,5 t"
+  11: "Vorfahrt an nächster Kreuzung"
+  12: "Vorfahrtstraße"
+  13: "Vorfahrt gewähren"
+  14: "Stop (Halt)"
+  15: "Durchfahrt verboten"
+  16: "Verbot für Fahrzeuge über 3,5 t"
+  17: "Einfahrt verboten"
+  18: "Allgemeine Gefahr / Vorsicht"
+  19: "Gefährliche Linkskurve"
+  20: "Gefährliche Rechtskurve"
+  21: "Doppelte Kurve"
+  22: "Holprige Fahrbahn"
+  23: "Rutschige Fahrbahn"
+  24: "Fahrbahnverengung rechts"
+  25: "Baustelle"
+  26: "Ampel"
+  27: "Fußgänger"
+  28: "Kinder / Schulweg"
+  29: "Fahrradüberquerung"
+  30: "Vorsicht Eis/Schnee"
+  31: "Wildwechsel"
+  32: "Ende aller Geschwindigkeits- und Überholverbote"
+  33: "Rechts abbiegen vorgeschrieben"
+  34: "Links abbiegen vorgeschrieben"
+  35: "Nur geradeaus"
+  36: "Geradeaus oder rechts"
+  37: "Geradeaus oder links"
+  38: "Rechts halten"
+  39: "Links halten"
+  40: "Kreisverkehr"
+  41: "Ende des Überholverbots"
+  42: "Ende des Überholverbots (über 3,5 t)"
