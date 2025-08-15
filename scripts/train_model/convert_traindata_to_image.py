@@ -1,8 +1,13 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+relative_csv_path = os.path.join(script_dir, "..", "..", "runs", "detect", "train", "results.csv")
+csv_path = os.path.abspath(relative_csv_path)
 
 # CSV einlesen
-df = pd.read_csv("results.csv")
+df = pd.read_csv(csv_path)
 epochs = df["epoch"]
 
 #Bild mit zwei nebeneinander liegenden Subplots
