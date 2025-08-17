@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import os
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-relative_csv_path = os.path.join(script_dir, "..", "..", "runs", "detect", "train", "results.csv")
+relative_csv_path = os.path.join(script_dir, "..",  "synset_signset_germany", "yolov8m_run_013", "results.csv")
 csv_path = os.path.abspath(relative_csv_path)
 
 # CSV einlesen
@@ -39,5 +39,6 @@ ax2.grid(True)
 
 # Layout & Speichern
 plt.tight_layout()
-plt.savefig("results_overview.png")
+output_image_path = os.path.join(script_dir, "..", "TrainingResults.jpg")
+plt.savefig(output_image_path)
 plt.show()
