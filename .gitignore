@@ -1,0 +1,26 @@
+synset_signset_germany/yolov8m_run_013/events.*
+
+# contains 211 folders with 500 .png
+# Ogre and Cycle have 500 .png with 500 .json
+data/raw/SynsetSignsetGermany/Cycles/*
+
+data/raw/SynsetSignsetGermany/Labels/*
+
+data/raw/SynsetSignsetGermany/Masks/*
+
+data/raw/SynsetSignsetGermany/Ogre/*
+
+# contains all images and all .txt files (yolo format)
+data/yolo_signs/train/labels.cache
+
+data/yolo_signs/val/labels.cache
+
+data/yolo_signs/val/images/
+
+data/yolo_signs/val/labels/
+
+data/yolo_signs/train/images/
+
+data/yolo_signs/train/labels/
+
+
