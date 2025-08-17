@@ -1,0 +1,29 @@
+Synset Signset Germany Dataset (c) by Anne Sielemann, Lena Loercher, Max-Lion Schumacher, Stefan Wolf, Masoud Roschani, Jens Ziehn, Juergen Beyerer; Fraunhofer IOSB, Fraunhofer IPA, and Karlsruhe Institute of Technology (KIT)
+
+Synset Signset Germany Dataset is licensed under a
+Creative Commons Attribution 4.0 International License.
+
+You should have received a copy of the license along with this
+work. If not, see https://creativecommons.org/licenses/by/4.0/ .
+
+To cite this dataset in your scientific work, please use the following bibliography entry:
+
+    Sielemann, A., Loercher, L., Schumacher, M., Wolf, S., Roschani, M., Ziehn, J. and Beyerer, J. (2024). Synset Signset Germany: A Synthetic Dataset for German Traffic Sign Recognition. In 2024 IEEE 27th International Conference on Intelligent Transportation Systems (ITSC).
+
+BibTeX:
+
+    @inproceedings{synset_signset_ger_sielemann_2024,
+        title={{Synset Signset Germany: A Synthetic Dataset for German Traffic Sign Recognition}},
+        author={Sielemann, Anne and Loercher, Lena and Schumacher, Max-Lion and Wolf, Stefan and Roschani, Masoud and Ziehn, Jens and Beyerer, Juergen},
+        booktitle={2024 IEEE 27th International Conference on Intelligent Transportation Systems (ITSC)},
+        year={2024}
+    }
+
+In case of copy and redistribute or publishing an adapted version of our dataset, please provide the name of our dataset, the creator names, a copyright notice, a link to this website, a license notice with link to the license, and if changes were made, a disclaimer notice, and a short description of the applied changes. For example, as follows:
+
+    This work is based on the Synset Signset Germany Dataset
+    by Anne Sielemann, Lena Loercher, Max-Lion Schumacher, Stefan Wolf, Jens Ziehn, Masoud Roschani, and Juergen Beyerer,
+    © 2024 Fraunhofer IOSB, All rights reserved.
+    Link: synset.de/datasets/synset-signset-ger/
+    Licence: CC BY 4.0
+    Disclaimer: The original authors are neither affiliated nor responsible for any applied changes.
