@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: traffic_sign_detection
+    ports:
+      - "8501:8501"
+    gpus: all
+    volumes:
+      - ./runs:/app/runs
+  dev:
+    build:
+      context: .
+      dockerfile: training.Dockerfile
+    container_name: traffic_sign_detection_dev
+    working_dir: "/app"
+    ports:
+      - "8502:8501"
+    gpus: all
+    volumes:
+      - .:/app
