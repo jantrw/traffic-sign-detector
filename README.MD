@@ -3,29 +3,32 @@
 A computer-vision project for detecting and classifying traffic signs (bounding boxes + class labels). This repository provides conversion tools, validators and training scripts to convert the SynsetSignsetGermany raw data into a YOLOv8-compatible dataset, train a YOLOv8 model, and run inference.
 
 ---
+## Current Training Pictures
+
+
+### Training Batches with Border
+![Training_Batches_Image](synset_signset_germany/yolov8m_run_013/train_batch2.jpg)
+### Training Data
+![Trainign_Data](TrainingResults.jpg)
 
 ## Dataset
-
-**Current dataset:** `SynsetSignsetGermany` (replaces GTSRB for this project).
+ **Current dataset:** 
+`SynsetSignsetGermany` (replaces GTSRB for this project).
 
 Download location (example / internal):  
-`https://owncloud.fraunhofer.de/index.php/s/OLQ6E5BVN4pRGu8?path=%2FSynsetSignsetGermany`
+https://owncloud.fraunhofer.de/index.php/s/OLQ6E5BVN4pRGu8?path=%2FSynsetSignsetGermany
 
-There are three archives you typically obtain and place under `data/raw/`:
-
-- `SynsetSignsetGermany.zip` (main archive; extracts into `SynsetSignsetGermany/` with `Ogre/`, `CsvFiles/`, `Cycles/`, `Labels/`, `Masks/` etc.)
-- `MasksOnly` (optional split with `Masks/` / `0/`..`210/` / files like `0_msk.png` .. `499_msk.png`)
-- `SemanticLabelsOnly` (optional split with `Labels/` / `0/`..`210/` / files like `0_seg.png` .. `499_seg.png`)
+Place the extracted SynsetSignsetGermany archive under `data/raw/` so the converter scripts can find the expected folders.
 
 Typical extracted structure (important folders):
 
 ```
 data/raw/SynsetSignsetGermany/
-  Ogre/               # images organized in class subfolders (0..210), with JSON metadata per image  (0..210)
+  Ogre/               # images organized in class subfolders (0..210)
   Masks/              # masks per-class (0..210) used to compute bboxes
   Labels/             # optional semantic labels per-class (0..210)
   CsvFiles/           # various csv splits and metadata (optional)
-  Cycles/             # alternative renderings and additional JSON metadata (optional) 
+  Cycles/             # JSON metadata per-image (optional)
 ```
 
 Notes:
