@@ -16,12 +16,16 @@ data/yolo_signs/train/labels.cache
 
 data/yolo_signs/val/labels.cache
 
-data/yolo_signs/val/images/
+data/yolo_signs/val/images/*
+!data/yolo_signs/val/images/
 
-data/yolo_signs/val/labels/
+data/yolo_signs/val/labels/*
+!data/yolo_signs/val/labels/
 
-data/yolo_signs/train/images/
+data/yolo_signs/train/images/*
+!data/yolo_signs/train/images/
 
-data/yolo_signs/train/labels/
+data/yolo_signs/train/labels/*
+!data/yolo_signs/train/labels/
 
 
