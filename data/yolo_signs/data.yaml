@@ -1,6 +1,6 @@
 path: .
-train: C:\Users\janferech\PycharmProjects\traffic-sign-detector\data\yolo_signs\train\images # nicht noetig den label ordner zu verlinken, da YOLO automatisch erwartet das die Label im parallel liegenden Ordner sind
-val: C:\Users\janferech\PycharmProjects\traffic-sign-detector\data\yolo_signs\val\images
+train: data\yolo_signs\train\images # ggf überarbeiten wenn es nicht gefunden werden kann
+val: data\yolo_signs\val\images
 nc: 211
 names:
   0: 0_Geschwindigkeit20
