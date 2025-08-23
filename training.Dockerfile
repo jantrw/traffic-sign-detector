@@ -6,20 +6,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1 libglib2.0-0 && \
     rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
-
 # Install Python dependencies
-RUN pip install --no-cache-dir \
-    streamlit==1.48.1 \
-    ultralytics==8.3.179 \
-    opencv-python==4.12.0.88 \
-    pillow==11.0.0 \
-    numpy==2.2.6 \
-    PyYAML==6.0.2 \
-    tqdm==4.67.1
+COPY requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Code kopieren
-COPY ./src /app/src
+COPY . /app
+
+WORKDIR /app
 
 # Streamlit-Port freigeben
 EXPOSE 8501
