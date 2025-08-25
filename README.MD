@@ -95,6 +95,35 @@ This will:
 - write `classes.txt`.
 
 ---
+## Validate dataset (quick)
+
+Run:
+```
+python scripts/validate_yolo_dataset.py
+```
+The script prints:
+- image/label counts for `train` and `val`,
+- up to 10 sample images without labels,
+- up to 10 labels without images,
+- basic format issues found in the first 200 labels.
+
+---
+
+## Troubleshooting & tips
+
+- **`val/images` missing**: Check `data/yolo_signs/data.yaml` for relative paths and that `val/images` actually exists. If you have only `train/`, use `create_val_split.py` to carve out a validation set.
+- **Slow conversion**: The mask-indexing step can be I/O heavy. If you see very long times while scanning many files, ensure masks are on a local disk (not slow network) and the script is using the optimized index variant (`--index` style`).
+- **Windows multiprocessing errors**: Use `if __name__ == '__main__':` guard and `multiprocessing.freeze_support()` in start scripts (already included in `start_train.py`). If still failing, use `workers=0` in training.
+- **Extra small model downloads (e.g., `yolo11n.pt`)**: Usually caused by tracker or helper modules. Keep `tracker=None` if you don't require tracking features.
+
+---
+
+## Example quick stats (observed during conversion)
+- Classes detected: `211` (folder-based)
+- Images scanned: ~`105,500` (this depends on which archives you extracted)
+- Labels produced: depends on masks presence — expected ~`105k` label files if masks available
+
+---
 
 ## Example: Generate data.yaml (relative paths)
 
@@ -121,7 +150,15 @@ Important: Ultralytics accepts either `names` list or mapping; `classes.txt` can
 
 ## Train (YOLOv8, example)
 
-Start training (from project root):
+This example shows how the model was trained using Ultralytics YOLOv8. 
+
+I trained the model on Kaggle (https://www.kaggle.com) because 17 epochs took about 16 hours on my hardware. For longer training runs or larger datasets, Kaggle or another GPU instance is recommended.
+
+Kaggle training command (edit ur paths into it):
+```
+!python -u -c "from ultralytics import YOLO; YOLO('yolov8m.pt').train(data='/kaggle/working/data2.yaml', epochs=25, imgsz=640, batch=16, name='yolov8m_run_01', project='/kaggle/working/synset_signset_germany', tracker=None)" | tee /kaggle/working/train_log.txt
+```
+Start training (OWN GPU), (from project root):
 ```
 python scripts/train_model/start_train.py
 ```
@@ -181,36 +218,5 @@ cv2.imwrite("inference_with_labels.jpg", img)
 ```
 
 This draws borders with the **folder/class names** (as requested) by mapping class IDs to names using `classes.txt`.
-
----
-
-## Validate dataset (quick)
-
-Run:
-```
-python scripts/validate_yolo_dataset.py
-```
-The script prints:
-- image/label counts for `train` and `val`,
-- up to 10 sample images without labels,
-- up to 10 labels without images,
-- basic format issues found in the first 200 labels.
-
----
-
-## Troubleshooting & tips
-
-- **`val/images` missing**: Check `data/yolo_signs/data.yaml` for relative paths and that `val/images` actually exists. If you have only `train/`, use `create_val_split.py` to carve out a validation set.
-- **No `mappings/synset_to_classname.json`**: The converter writes mapping JSON only if it detected a folder->class mapping. If you absolutely need a JSON, generate it from `classes.txt` (simple script).
-- **Slow conversion**: The mask-indexing step can be I/O heavy. If you see very long times while scanning many files, ensure masks are on a local disk (not slow network) and the script is using the optimized index variant (`--index` style`).
-- **Windows multiprocessing errors**: Use `if __name__ == '__main__':` guard and `multiprocessing.freeze_support()` in start scripts (already included in `start_train.py`). If still failing, use `workers=0` in training.
-- **Extra small model downloads (e.g., `yolo11n.pt`)**: Usually caused by tracker or helper modules. Keep `tracker=None` if you don't require tracking features.
-
----
-
-## Example quick stats (observed during conversion)
-- Classes detected: `211` (folder-based)
-- Images scanned: ~`105,500` (this depends on which archives you extracted)
-- Labels produced: depends on masks presence — expected ~`105k` label files if masks available
 
 ---
