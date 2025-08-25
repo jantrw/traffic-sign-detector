@@ -7,7 +7,7 @@ A computer-vision project for detecting and classifying traffic signs (bounding 
 
 
 ### Training Batches with Border
-![Training_Batches_Image](synset_signset_germany/yolov8m_run_013/train_batch2.jpg)
+![Training_Batches_Image](synset_signset_germany/yolov8m_run_013/train_batch89011.jpg)
 ### Training Data
 ![Trainign_Data](TrainingResults.jpg)
 
