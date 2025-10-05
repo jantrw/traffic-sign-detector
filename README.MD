@@ -7,12 +7,12 @@ A computer-vision project for detecting and classifying traffic signs (bounding 
 
 
 ### Training Batches with Border
-![Training_Batches_Image](val_batch1_labels.jpg)
+![Training_Batches_Image](images/val_batch1_labels.jpg)
 ### Training Data in resumed Training (=14 Epochs)
-![Trainign_Data](results.png)
+![Trainign_Data](images/results.png)
 
 ### Confusion Matrix Normalized: Recognition Rate in Percentages
-![ConfusionMatrixNormalized](confusion_matrix_normalized.png)
+![ConfusionMatrixNormalized](images/confusion_matrix_normalized.png)
 
 ## Dataset
  **Current dataset:** 
