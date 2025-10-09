@@ -14,6 +14,18 @@ A computer-vision project for detecting and classifying traffic signs (bounding 
 ### Confusion Matrix Normalized: Recognition Rate in Percentages
 ![ConfusionMatrixNormalized](images/confusion_matrix_normalized.png)
 
+
+## What this repo does (summary)
+
+1. Convert SynsetSignsetGermany → YOLO format (images + `.txt` labels with normalized bboxes).
+2. Produce `data/yolo_signs` containing:
+   - `train/images`, `train/labels`
+   - `val/images`,   `val/labels`
+   - `classes.txt` (one class name per line)
+   - `data.yaml` (YOLO/Ultralytics dataset file with relative paths)
+3. Validate dataset integrity with `scripts/validate_yolo_dataset.py`.
+4. Train YOLOv8 (we use `yolov8m.pt` by default) using `scripts/train_model/start_train.py` with W&B logging and TensorBoard.
+
 ## Dataset
  **Current dataset:** 
 `SynsetSignsetGermany` (replaces GTSRB for this project).
@@ -38,19 +50,6 @@ Notes:
 - Each Ogre class folder contains the original image files + .json with metadata (e.g. `0_ogre.png`, `0_ogre.json`, `1_ogre.png`,`1_ogre.json` …).
 - Masks and Labels folders are used to extract bounding boxes (masks -> contours -> bbox).
 - Many helper scripts expect these folders to exist under `data/raw/SynsetSignsetGermany`.
-
----
-
-## What this repo does (summary)
-
-1. Convert SynsetSignsetGermany → YOLO format (images + `.txt` labels with normalized bboxes).
-2. Produce `data/yolo_signs` containing:
-   - `train/images`, `train/labels`
-   - `val/images`,   `val/labels`
-   - `classes.txt` (one class name per line)
-   - `data.yaml` (YOLO/Ultralytics dataset file with relative paths)
-3. Validate dataset integrity with `scripts/validate_yolo_dataset.py`.
-4. Train YOLOv8 (we use `yolov8m.pt` by default) using `scripts/train_model/start_train.py` with W&B logging and TensorBoard.
 
 ---
 
