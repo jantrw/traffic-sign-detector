@@ -7,13 +7,13 @@ A computer-vision project for detecting and classifying traffic signs (bounding 
 <!-- Preview: small thumbnails (centered, clean, no borders) -->
 <div align="center" style="margin: 16px 0;">
   <a href="images/predict/steileKurve.jpg">
-    <img src="images/predict/steileKurve.jpg" alt="steileKurve" width="200" height="220">
+    <img src="images/predict/steileKurve.jpg" alt="steileKurve" width="220" height="260">
   </a>
   <a href="images/predict/vorfahrt_blauerHimmel.jpg">
-    <img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel" width="200" height="220">
+    <img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel" width="220" height="260">
   </a>
   <a href="images/predict/wild.jpg">
-    <img src="images/predict/wild.jpg" alt="wild" width="200" height="220">
+    <img src="images/predict/wild.jpg" alt="wild" width="220" height="260">
   </a>
 </div>
 
