@@ -57,7 +57,7 @@ git lfs install
 
 **Windows (PowerShell / admin)**
 ```powershell
-# Install from https://git-lfs.github.com/ or via Chocolatey: choco install git-lfs
+choco install git-lfs # Or Download installer from https://git-lfs.github.com/
 git lfs install
 ```
 **Download LFS objects (this fetches the real model and not just the pointer)**
