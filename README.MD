@@ -4,29 +4,22 @@
 
 A computer-vision project for detecting and classifying traffic signs (bounding boxes + class labels). This repository provides conversion tools, validators and training scripts to convert the SynsetSignsetGermany raw data into a YOLOv8-compatible dataset, train a YOLOv8 model, and run inference.
 
-<!-- Preview: small thumbnails (full images, not cropped) -->
-<div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; margin:12px 0;">
+<!-- Preview: small thumbnails (clean, no white borders) -->
+<div style="display:flex; flex-wrap:wrap; gap:6px; justify-content:center; align-items:center; margin:12px 0;">
   <a href="images/predict/steileKurve.jpg">
     <img src="images/predict/steileKurve.jpg" alt="steileKurve"
-         style="width:120px; height:80px; object-fit:contain; background:#fff; border:1px solid #eee; border-radius:4px; padding:2px;">
-  </a>
-  <a href="images/predict/steinschlag.jpg">
-    <img src="images/predict/steinschlag.jpg" alt="steinschlag"
-         style="width:120px; height:80px; object-fit:contain; background:#fff; border:1px solid #eee; border-radius:4px; padding:2px;">
+         style="width:120px; height:120px; object-fit:contain;">
   </a>
   <a href="images/predict/vorfahrt_blauerHimmel.jpg">
     <img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel"
-         style="width:120px; height:80px; object-fit:contain; background:#fff; border:1px solid #eee; border-radius:4px; padding:2px;">
+         style="width:120px; height:120px; object-fit:contain;">
   </a>
   <a href="images/predict/wild.jpg">
     <img src="images/predict/wild.jpg" alt="wild"
-         style="width:120px; height:80px; object-fit:contain; background:#fff; border:1px solid #eee; border-radius:4px; padding:2px;">
-  </a>
-  <a href="images/predict/Zeichen261.jpg">
-    <img src="images/predict/Zeichen261.jpg" alt="Zeichen261"
-         style="width:120px; height:80px; object-fit:contain; background:#fff; border:1px solid #eee; border-radius:4px; padding:2px;">
+         style="width:120px; height:120px; object-fit:contain;">
   </a>
 </div>
+
 
 
 ---
