@@ -1,18 +1,139 @@
-# Traffic Sign Detector
+# YOLOv8 Traffic Sign Detector
+
+---
 
 A computer-vision project for detecting and classifying traffic signs (bounding boxes + class labels). This repository provides conversion tools, validators and training scripts to convert the SynsetSignsetGermany raw data into a YOLOv8-compatible dataset, train a YOLOv8 model, and run inference.
 
+<!-- Preview: small thumbnails (full images, not cropped) -->
+<div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; margin:12px 0;">
+  <a href="images/predict/steileKurve.jpg">
+    <img src="images/predict/steileKurve.jpg" alt="steileKurve"
+         style="width:120px; height:80px; object-fit:contain; background:#fff; border:1px solid #eee; border-radius:4px; padding:2px;">
+  </a>
+  <a href="images/predict/steinschlag.jpg">
+    <img src="images/predict/steinschlag.jpg" alt="steinschlag"
+         style="width:120px; height:80px; object-fit:contain; background:#fff; border:1px solid #eee; border-radius:4px; padding:2px;">
+  </a>
+  <a href="images/predict/vorfahrt_blauerHimmel.jpg">
+    <img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel"
+         style="width:120px; height:80px; object-fit:contain; background:#fff; border:1px solid #eee; border-radius:4px; padding:2px;">
+  </a>
+  <a href="images/predict/wild.jpg">
+    <img src="images/predict/wild.jpg" alt="wild"
+         style="width:120px; height:80px; object-fit:contain; background:#fff; border:1px solid #eee; border-radius:4px; padding:2px;">
+  </a>
+  <a href="images/predict/Zeichen261.jpg">
+    <img src="images/predict/Zeichen261.jpg" alt="Zeichen261"
+         style="width:120px; height:80px; object-fit:contain; background:#fff; border:1px solid #eee; border-radius:4px; padding:2px;">
+  </a>
+</div>
+
+
 ---
-## Current Training Pictures
+## Reproduce & Quick Start
+
+### 1) Clone the repository
+```bash
+git clone https://github.com/jantrw/traffic-sign-detector.git
+cd traffic-sign-detector
+```
+
+### 2) Create and activate a virtual environment (recommended)
+**Linux / macOS**
+```bash
+python3 -m venv yolov8traffictracking
+source yolov8traffictracking/bin/activate
+```
+
+**Windows (PowerShell)**
+```powershell
+python -m venv yolov8traffictracking
+.\yolov8traffictracking\Scripts\Activate.ps1
+# (or for cmd): yolov8traffictracking\Scripts\activate.bat
+```
+
+### 3) Install dependencies
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+### 3) Install Model & Git LFS (important)
+The model `training_results/yolov8m_run_013/weights/best.pt` is stored with **Git LFS** because it exceeds GitHub's 100 MB file size limit. After cloning the repo you **must** pull LFS objects to get the real `.pt` file (otherwise you only get a pointer file).
+
+**Linux / macOS**
+```bash
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+sudo apt install git-lfs         # or use your distro package manager
+git lfs install
+```
+
+**Windows (PowerShell / admin)**
+```powershell
+# Install from https://git-lfs.github.com/ or via Chocolatey: choco install git-lfs
+git lfs install
+```
+**Download LFS objects (this fetches the real model and not just the pointer)**
+```bash
+git lfs pull        # fetches LFS objects for the current refs
+```
+
+## 4) Python wrapper scripts (recommended)
+The repo includes `run_detect.py` for convenient and reproducible runs.
+
+**Example: single-image**
+```bash
+python run_detect.py images/steileKurve.jpg
+```
+**Example: with your own Image**
+```bash
+python run_detect.py C:/Users/deinUserName/Downloads/image.png
+```
+**Example: multi-image detection**
+```bash
+python run_detect.py images/
+```
+
+### 5) Recommended parameters & tips
+- `conf` (confidence threshold): start `0.05–0.3`. Lower → more detections (including false positives).  
+- `imgsz`: 640 is fast; 1024 helps find small signs but uses more memory.  
+- For blurry, low-contrast images: try `conf=0.05` and `imgsz=1024`, or preprocess with sharpening / CLAHE.  
+- Use `save_txt=True` to get YOLO-format `.txt` files with detections for evaluation.
+
+### 6) Where to put images / recommended image type
+- Example images: `images/` inside the repo.  
+- You may replace or add your own images. Recommended: **handheld photos** from your phone.  
+- If images are very large or very sharp, try resizing to `imgsz` used during inference, or use the Python wrapper to set `imgsz` higher.  
+
+### 7) Troubleshooting quick guide
+- **No detections:** try `--conf 0.01` or `conf=0.05` and `imgsz=1024`.  
+- **Detections but many false positives:** raise `conf` to `0.3–0.5`, use temporal smoothing in video (require detection in 2 consecutive frames).  
+- **Model checkpoint missing or wrong:** ensure `training_results/.../best.pt` exists and is a detection checkpoint . Use `yolo val model=... data=data2.yaml` to verify performance on the validation set.  
+- **Git LFS models:** The model got a LFS pointer run `git lfs install` and `git lfs pull` after cloning.
+
+> NOTE: Use the virtual environment to avoid system conflicts.
+
+### 8) Detected Images
+
+<div style="display:flex; flex-wrap:wrap; gap:8px; align-items:flex-start;">
+  <img src="images/predict/steileKurve.jpg" alt="steileKurve" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
+  <img src="images/predict/steinschlag.jpg" alt="steinschlag" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
+  <img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
+  <img src="images/predict/wild.jpg" alt="wild" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
+  <img src="images/predict/Zeichen261.jpg" alt="Zeichen261" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
+</div>
+
+---
+
+## Training Pictures & Data
 
 
 ### Training Batches with Border
-![Training_Batches_Image](images/val_batch1_labels.jpg)
+![Training_Batches_Image](images/helper/val_batch1_labels.jpg)
 ### Training Data in resumed Training (=14 Epochs)
-![Trainign_Data](images/results.png)
+![Trainign_Data](images/helper/results.png)
 
 ### Confusion Matrix Normalized: Recognition Rate in Percentages
-![ConfusionMatrixNormalized](images/confusion_matrix_normalized.png)
+![ConfusionMatrixNormalized](images/helper/confusion_matrix_normalized.png)
 
 
 ## What this repo does (summary)
