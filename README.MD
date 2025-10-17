@@ -2,7 +2,7 @@
 
 ---
 
-A computer-vision project for detecting and classifying traffic signs (bounding boxes + class labels). This repository provides conversion tools, validators and training scripts to convert the SynsetSignsetGermany raw data into a YOLOv8-compatible dataset, train a YOLOv8 model, and run inference.
+A computer-vision project for detecting and classifying German traffic signs (bounding boxes + class labels). This repository provides conversion tools, validators and training scripts to convert the SynsetSignsetGermany raw data into a YOLOv8-compatible dataset, train a YOLOv8 model, and run inference.
 
 <!-- Preview: small thumbnails (centered, clean, no borders) -->
 <div align="center" style="margin: 16px 0;">
