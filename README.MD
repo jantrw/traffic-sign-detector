@@ -4,21 +4,19 @@
 
 A computer-vision project for detecting and classifying traffic signs (bounding boxes + class labels). This repository provides conversion tools, validators and training scripts to convert the SynsetSignsetGermany raw data into a YOLOv8-compatible dataset, train a YOLOv8 model, and run inference.
 
-<!-- Preview: small thumbnails (clean, no white borders) -->
-<div style="display:flex; flex-wrap:wrap; gap:6px; justify-content:center; align-items:center; margin:12px 0;">
+<!-- Preview: small thumbnails (centered, clean, no borders) -->
+<div align="center" style="margin: 16px 0;">
   <a href="images/predict/steileKurve.jpg">
-    <img src="images/predict/steileKurve.jpg" alt="steileKurve"
-         style="width:120px; height:120px; object-fit:contain;">
+    <img src="images/predict/steileKurve.jpg" alt="steileKurve" width="200" height="220">
   </a>
   <a href="images/predict/vorfahrt_blauerHimmel.jpg">
-    <img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel"
-         style="width:120px; height:120px; object-fit:contain;">
+    <img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel" width="200" height="220">
   </a>
   <a href="images/predict/wild.jpg">
-    <img src="images/predict/wild.jpg" alt="wild"
-         style="width:120px; height:120px; object-fit:contain;">
+    <img src="images/predict/wild.jpg" alt="wild" width="200" height="220">
   </a>
 </div>
+
 
 
 
