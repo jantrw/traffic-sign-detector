@@ -17,9 +17,6 @@ A computer-vision project for detecting and classifying German traffic signs (bo
   </a>
 </div>
 
-
-
-
 ---
 ## Reproduce & Quick Start
 
@@ -100,8 +97,6 @@ python run_detect.py images/
 - **Detections but many false positives:** raise `conf` to `0.3–0.5`, use temporal smoothing in video (require detection in 2 consecutive frames).  
 - **Model checkpoint missing or wrong:** ensure `training_results/.../best.pt` exists and is a detection checkpoint . Use `yolo val model=... data=data2.yaml` to verify performance on the validation set.  
 - **Git LFS models:** The model got a LFS pointer run `git lfs install` and `git lfs pull` after cloning.
-
-> NOTE: Use the virtual environment to avoid system conflicts.
 
 ### 8) Detected Images
 
