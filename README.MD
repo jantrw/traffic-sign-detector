@@ -18,6 +18,20 @@ A computer-vision project for detecting and classifying German traffic signs (bo
 </div>
 
 ---
+
+## Table of contents
+1. [Reproduce](#reproduce)  
+   1.1 [Detected images](#detected-images)  
+2. [Training pictures & data](#training-pictures--data)  
+3. [What this repo does (summary)](#what-this-repo-does-summary)  
+4. [Dataset](#dataset)  
+5. [Files & scripts](#files--scripts)  
+6. [Example: convert & prepare dataset](#example-convert--prepare-dataset)  
+7. [Validate dataset](#validate-dataset)  
+8. [Train (yolov8m) — example](#train-yolov8m-example)  
+9. [Inference example](#inference-example)  
+
+---
 ## Reproduce & Quick Start
 
 ### 1) Clone the repository
@@ -45,7 +59,7 @@ python -m venv yolov8traffictracking
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
-### 3) Install Model & Git LFS (important)
+### 4) Install Model & Git LFS (important)
 The model `training_results/yolov8m_run_013/weights/best.pt` is stored with **Git LFS** because it exceeds GitHub's 100 MB file size limit. After cloning the repo you **must** pull LFS objects to get the real `.pt` file (otherwise you only get a pointer file).
 
 **Linux / macOS**
@@ -65,7 +79,7 @@ git lfs install
 git lfs pull        # fetches LFS objects for the current refs
 ```
 
-## 4) Python wrapper scripts (recommended)
+## 5) Python wrapper scripts (recommended)
 The repo includes `run_detect.py` for convenient and reproducible runs.
 
 **Example: single-image**
@@ -80,23 +94,10 @@ python run_detect.py C:/Users/deinUserName/Downloads/image.png
 ```bash
 python run_detect.py images/
 ```
-
-### 5) Recommended parameters & tips
-- `conf` (confidence threshold): start `0.05–0.3`. Lower → more detections (including false positives).  
-- `imgsz`: 640 is fast; 1024 helps find small signs but uses more memory.  
-- For blurry, low-contrast images: try `conf=0.05` and `imgsz=1024`, or preprocess with sharpening / CLAHE.  
-- Use `save_txt=True` to get YOLO-format `.txt` files with detections for evaluation.
-
-### 6) Where to put images / recommended image type
-- Example images: `images/` inside the repo.  
-- You may replace or add your own images. Recommended: **handheld photos** from your phone.  
-- If images are very large or very sharp, try resizing to `imgsz` used during inference, or use the Python wrapper to set `imgsz` higher.  
-
-### 7) Troubleshooting quick guide
+### 6) Troubleshooting quick guide
 - **No detections:** try `--conf 0.01` or `conf=0.05` and `imgsz=1024`.  
 - **Detections but many false positives:** raise `conf` to `0.3–0.5`, use temporal smoothing in video (require detection in 2 consecutive frames).  
 - **Model checkpoint missing or wrong:** ensure `training_results/.../best.pt` exists and is a detection checkpoint . Use `yolo val model=... data=data2.yaml` to verify performance on the validation set.  
-- **Git LFS models:** The model got a LFS pointer run `git lfs install` and `git lfs pull` after cloning.
 
 ### 8) Detected Images
 
@@ -160,30 +161,6 @@ Notes:
 
 ---
 
-## Files & Scripts (where to find them)
-
-Top-level `scripts/` (conversion & dataset tools):
-
-- `convert_synset_to_yolo.py`  - Main converter. Reads `Ogre/`, `Masks/`, `Labels/`. Computes bboxes from masks and writes YOLO `.txt` labels. Produces `data/yolo_signs/*` (images & labels). Writes `data/yolo_signs/classes.txt`.
-
-- `convert_traindata_to_image.py`  - Generates a training visualization image (e.g. `TrainingResults.jpg`) from intermediate `resultset.csv` or other metrics. **Note: Can be used during training, I'd suggest wait 2 or more Epoches for the best Image.** 
-
-- `create_data_yaml.py`  - Build `data/yolo_signs/data.yaml` (relative paths and `names` entries). Use after conversion or when editing classes.
-
-- `create_val_split.py`  - Carve out a random validation split (default 10%) by moving images + labels from `train/` to `val/`.
-
-- `validate_yolo_dataset.py`  - Quick validator that checks image↔label correspondence and basic YOLO label format.
-
-- `test_gpu_support.py`  - Small helper to check if PyTorch detects a CUDA GPU and prints device info.
-
-Training utilities under `scripts/train_model/`:
-
-- `start_train.py`  - Runs training using `ultralytics` YOLO API. Script is Windows-safe (uses `if __name__ == "__main__":` + `multiprocessing.freeze_support()` in the provided version). It initializes a W&B run (if configured) and prints TensorBoard instructions.
-
-- `yolov8m.pt` / `yolo11n.pt`  - Local pretrained weights used by trainer and optional helper modules.
-
----
-
 ## Example: Convert & prepare dataset
 
 From project root, example conversion command:
@@ -224,13 +201,6 @@ The script prints:
 - **Slow conversion**: The mask-indexing step can be I/O heavy. If you see very long times while scanning many files, ensure masks are on a local disk (not slow network) and the script is using the optimized index variant (`--index` style`).
 - **Windows multiprocessing errors**: Use `if __name__ == '__main__':` guard and `multiprocessing.freeze_support()` in start scripts (already included in `start_train.py`). If still failing, use `workers=0` in training.
 - **Extra small model downloads (e.g., `yolo11n.pt`)**: Usually caused by tracker or helper modules. Keep `tracker=None` if you don't require tracking features.
-
----
-
-## Example quick stats (observed during conversion)
-- Classes detected: `211` (folder-based)
-- Images scanned: ~`105,500` (this depends on which archives you extracted)
-- Labels produced: depends on masks presence — expected ~`105k` label files if masks available
 
 ---
 
