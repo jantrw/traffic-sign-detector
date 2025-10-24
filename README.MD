@@ -216,7 +216,7 @@ Start training locally (example):
 ```bash
 python scripts/train_model/start_train.py
 # or with ultralytics directly:
-python -c "from ultralytics import YOLO; YOLO('yolov8m.pt').train(data='data/yolo_signs/data.yaml', epochs=50, imgsz=640, batch=16, name='yolov8m_run')"
+# python -c "from ultralytics import YOLO; YOLO('yolov8m.pt').train(data='data/yolo_signs/data.yaml', epochs=50, imgsz=640, batch=16, name='yolov8m_run')"
 ```
 Notes:
 - Adjust `batch` / `imgsz` to your GPU memory.  
