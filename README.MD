@@ -24,12 +24,11 @@ A computer-vision project for detecting and classifying German traffic signs (bo
    1.1 [Detected images](#detected-images)  
 2. [Training pictures & data](#training-pictures--data)  
 3. [What this repo does (summary)](#what-this-repo-does-summary)  
-4. [Dataset](#dataset)  
-5. [Files & scripts](#files--scripts)  
-6. [Example: convert & prepare dataset](#example-convert--prepare-dataset)  
-7. [Validate dataset](#validate-dataset)  
-8. [Train (yolov8m) — example](#train-yolov8m-example)  
-9. [Inference example](#inference-example)  
+4. [Dataset](#dataset)
+5. [Convert & prepare dataset](#example-convert--prepare-dataset)  
+6. [Validate dataset](#validate-dataset)  
+7. [Train (yolov8m) — example](#train-yolov8m-example)  
+8. [Inference example](#inference-example)  
 
 ---
 ## Reproduce & Quick Start
