@@ -99,7 +99,7 @@ python run_detect.py images/
 - **Detections but many false positives:** raise `conf` to `0.3–0.5`, use temporal smoothing in video (require detection in 2 consecutive frames).  
 - **Model checkpoint missing or wrong:** ensure `training_results/.../best.pt` exists and is a detection checkpoint . Use `yolo val model=... data=data2.yaml` to verify performance on the validation set.  
 
-### 8) Detected Images
+### 7) Detected Images
 
 <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:flex-start;">
   <img src="images/predict/steileKurve.jpg" alt="steileKurve" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
@@ -172,37 +172,20 @@ python scripts/convert_synset_to_yolo.py `
    --out data/yolo_signs `
    --split 0.8 0.2 0.0
 ```
-**Note: Paths in `scripts/convert_synset_to_yolo.py` + the conversion command maybe have to be adjusted.**
-
-This will:
-- index masks and labels,
-- compute bounding boxes from masks,
-- copy images into `data/yolo_signs/train|val/images` and write corresponding `.txt` label files,
-- write `classes.txt`.
+This will compute bboxes from masks and write images + `.txt` labels into `data/yolo_signs/train|val`.
 
 ---
-## Validate dataset (quick)
 
-Run:
-```
+## Validate dataset
+
+Quick check:
+```bash
 python scripts/validate_yolo_dataset.py
 ```
-The script prints:
-- image/label counts for `train` and `val`,
-- up to 10 sample images without labels,
-- up to 10 labels without images,
-- basic format issues found in the first 200 labels.
-
----
-
-## Troubleshooting & tips
-
-- **`val/images` missing**: Check `data/yolo_signs/data.yaml` for relative paths and that `val/images` actually exists. If you have only `train/`, use `create_val_split.py` to carve out a validation set.
-- **Slow conversion**: The mask-indexing step can be I/O heavy. If you see very long times while scanning many files, ensure masks are on a local disk (not slow network) and the script is using the optimized index variant (`--index` style`).
-- **Windows multiprocessing errors**: Use `if __name__ == '__main__':` guard and `multiprocessing.freeze_support()` in start scripts (already included in `start_train.py`). If still failing, use `workers=0` in training.
-- **Extra small model downloads (e.g., `yolo11n.pt`)**: Usually caused by tracker or helper modules. Keep `tracker=None` if you don't require tracking features.
-
----
+What it prints:
+- counts for `train` and `val` images/labels,  
+- up to N sample images missing labels, or labels missing images,  
+- basic YOLO label format issues.
 
 ## Example: Generate data.yaml (relative paths)
 
@@ -227,46 +210,18 @@ Important: Ultralytics accepts either `names` list or mapping; `classes.txt` can
 
 ---
 
-## Train (YOLOv8, example)
+## Train (yolov8m) — example
 
-This example shows how the model was trained using Ultralytics YOLOv8. 
-
-I trained the model on Kaggle (https://www.kaggle.com) because 17 epochs took about 16 hours on my hardware. For longer training runs or larger datasets, Kaggle or another GPU instance is recommended.
-
-Kaggle training command (edit ur paths into it):
-```
-!python -u -c "from ultralytics import YOLO; YOLO('yolov8m.pt').train(data='/kaggle/working/data2.yaml', epochs=25, imgsz=640, batch=16, name='yolov8m_run_01', project='/kaggle/working/synset_signset_germany', tracker=None)" | tee /kaggle/working/train_log.txt
-```
-Start training (OWN GPU), (from project root):
-```
+Start training locally (example):
+```bash
 python scripts/train_model/start_train.py
+# or with ultralytics directly:
+python -c "from ultralytics import YOLO; YOLO('yolov8m.pt').train(data='data/yolo_signs/data.yaml', epochs=50, imgsz=640, batch=16, name='yolov8m_run')"
 ```
-Key training notes:
-- Uses `ultralytics` `YOLO("yolov8m.pt")` and `model.train(...)`.
-- The script integrates with **Weights & Biases** (W&B). Login once with `wandb login` if you want online monitoring.
-- Trainer prints a TensorBoard command like:
-  TensorBoard: Start with 'tensorboard --logdir <run_dir>', view at http://localhost:6006/
-
-- If you run on Windows and encounter the multiprocessing spawn error, either:
-  - ensure `start_train.py` is the guarded main module (it is in the repo), or
-  - use `workers=0` in `model.train(...)` (slower I/O, but avoids spawn issues).
-- If you don't want tracker downloads (small helper weights like `yolo11n.pt`), the trainer script in repo sets `tracker=None` to avoid the extra download by default.
-
-Example training parameters you can tweak in `start_train.py`:
-```python
-model.train(
-  data="data/yolo_signs/data.yaml",
-  epochs=50,
-  imgsz=640,
-  batch=16,               # adjust by GPU memory
-  name="synset_signs_run",
-  project="synset_signset_germany",
-  tracker=None,           # avoid extra downloads
-  # workers=0             # use if spawn issues occur
-)
-```
-
-W&B run is available at `https://wandb.ai/<your-account>/<project>/runs/<run-id>` (the script prints the run URL at start).
+Notes:
+- Adjust `batch` / `imgsz` to your GPU memory.  
+- The trainer supports W&B and prints a TensorBoard command if logs are enabled.  
+- If you see Git LFS pointer files instead of `.pt`, run `git lfs install` and `git lfs pull`.
 
 ---
 
