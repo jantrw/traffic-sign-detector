@@ -20,26 +20,26 @@ A computer-vision project for detecting and classifying German traffic signs (bo
 ---
 
 ## Table of contents
-1. [Setup](#setup)
-   1.1 [Detected images](#detected-images)  
-2. [Training pictures & data](#training-pictures--data)  
-3. [What this repo does (summary)](#what-this-repo-does-summary)  
-4. [Dataset](#dataset)
-5. [Convert & prepare dataset](#example-convert--prepare-dataset)  
-6. [Validate dataset](#validate-dataset)  
-7. [Train (yolov8m) — example](#train-yolov8m-example)  
-8. [Inference example](#inference-example)  
+1. [1. Setup](#1-setup)
+   1.1 [1.7 Detected Images](#17-detected-images)
+2. [2. Training Pictures & Data](#2-training-pictures--data)
+3. [3. What This Repo Does (Summary)](#3-what-this-repo-does-summary)
+4. [4. Dataset](#4-dataset)
+5. [5. Convert & Prepare Dataset](#5-convert--prepare-dataset)
+6. [6. Validate Dataset](#6-validate-dataset)
+7. [7. Train (YOLOv8m) Example](#7-train-yolov8m-example)
+8. [8. Inference Example](#8-inference-example)
 
 ---
-## Setup
+## 1. Setup
 
-### 1) Clone the repository
+### 1.1 Clone the repository
 ```bash
 git clone https://github.com/jantrw/traffic-sign-detector.git
 cd traffic-sign-detector
 ```
 
-### 2) Create and activate a virtual environment (recommended)
+### 1.2 Create and activate a virtual environment (recommended)
 **Linux / macOS**
 ```bash
 python3 -m venv yolov8traffictracking
@@ -53,7 +53,7 @@ python -m venv yolov8traffictracking
 # (or for cmd): yolov8traffictracking\Scripts\activate.bat
 ```
 
-### 3) Install dependencies
+### 1.3 Install dependencies
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
@@ -61,7 +61,7 @@ pip install -r requirements.txt
 
 Cloning this repo is not enough to run inference end-to-end. You must supply your own trained `.pt` model file.
 
-### 4) Model files
+### 1.4 Model files
 This repo does not include trained `.pt` weights.
 
 - `yolov8m.pt` is not stored in this repository.
@@ -69,7 +69,7 @@ This repo does not include trained `.pt` weights.
 - Training starts from the Ultralytics `yolov8m.pt` checkpoint name, which Ultralytics downloads if needed.
 - Inference requires your own local model path.
 
-## 5) Python wrapper scripts
+### 1.5 Python wrapper scripts
 The repo includes `run_detect.py` for local inference once you have a model file.
 
 **Example: single-image**
@@ -84,12 +84,12 @@ python run_detect.py C:/Users/deinUserName/Downloads/image.png --model path/to/b
 ```bash
 python run_detect.py images/ --model path/to/best.pt
 ```
-### 6) Troubleshooting quick guide
+### 1.6 Troubleshooting quick guide
 - **No detections:** try `--conf 0.01` or `conf=0.05` and `imgsz=1024`.  
 - **Detections but many false positives:** raise `conf` to `0.3–0.5`, use temporal smoothing in video (require detection in 2 consecutive frames).  
 - **Model checkpoint missing or wrong:** pass a valid local `.pt` path via `--model`. Use `yolo val model=... data=data/yolo_signs/data.yaml` to verify it.
 
-### 7) Detected Images
+### 1.7 Detected Images
 
 <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:flex-start;">
   <img src="images/predict/steileKurve.jpg" alt="steileKurve" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
@@ -101,7 +101,7 @@ python run_detect.py images/ --model path/to/best.pt
 
 ---
 
-## Training Pictures & Data
+## 2. Training Pictures & Data
 
 
 ### Training Batches with Border
@@ -113,7 +113,7 @@ python run_detect.py images/ --model path/to/best.pt
 ![ConfusionMatrixNormalized](images/helper/confusion_matrix_normalized.png)
 
 
-## What this repo does (summary)
+## 3. What This Repo Does (Summary)
 
 1. Convert SynsetSignsetGermany → YOLO format (images + `.txt` labels with normalized bboxes).
 2. Produce `data/yolo_signs` containing:
@@ -124,7 +124,7 @@ python run_detect.py images/ --model path/to/best.pt
 3. Validate dataset integrity with `scripts/validate_yolo_dataset.py`.
 4. Train YOLOv8 using `scripts/train_model/start_train.py` with W&B logging and TensorBoard.
 
-## Dataset
+## 4. Dataset
  **Current dataset:** 
 `SynsetSignsetGermany` (replaces GTSRB for this project).
 
@@ -151,7 +151,7 @@ Notes:
 
 ---
 
-## Example: Convert & prepare dataset
+## 5. Convert & Prepare Dataset
 
 From project root, example conversion command:
 ```
@@ -166,7 +166,7 @@ This will compute bboxes from masks and write images + `.txt` labels into `data/
 
 ---
 
-## Validate dataset
+## 6. Validate Dataset
 
 Quick check:
 ```bash
@@ -177,7 +177,7 @@ What it prints:
 - up to N sample images missing labels, or labels missing images,  
 - basic YOLO label format issues.
 
-## Example: Generate data.yaml (relative paths)
+### 6.1 Generate `data.yaml` (relative paths)
 
 Run:
 ```
@@ -200,7 +200,7 @@ Important: Ultralytics accepts either `names` list or mapping; `classes.txt` can
 
 ---
 
-## Train (yolov8m) — example
+## 7. Train (YOLOv8m) Example
 
 Start training locally (example):
 ```bash
@@ -215,7 +215,7 @@ Notes:
 
 ---
 
-## Inference example (draw boxes with class names)
+## 8. Inference Example
 
 Below is a minimal snippet that runs inference and draws bounding boxes labeled by class names (labels come from `classes.txt`):
 
