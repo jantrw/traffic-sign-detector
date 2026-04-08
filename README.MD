@@ -20,9 +20,9 @@ A computer-vision project for detecting and classifying German traffic signs (bo
 ---
 
 ## Table of contents
-1. [Setup](#1-setup)
-   1. [Detected Images](#17-detected-images)
-2. [Why I Created This Project](#2-why-i-created-this-project)
+1. [Why I Created This Project](#1-why-i-created-this-project)
+2. [Setup](#2-setup)
+   1. [Detected Images](#27-detected-images)
 3. [Training Pictures and Data](#3-training-pictures-and-data)
 4. [What This Repo Does (Summary)](#4-what-this-repo-does-summary)
 5. [Dataset](#5-dataset)
@@ -32,15 +32,23 @@ A computer-vision project for detecting and classifying German traffic signs (bo
 9. [Inference Example](#9-inference-example)
 
 ---
-## 1. Setup
+## 1. Why I Created This Project
 
-### 1.1 Clone the repository
+I created this project because I could not find a strong computer-vision project or German traffic sign detector that focused specifically on German road signs. Most available work was either too broad, mixed multiple countries, or did not provide a practical end-to-end detector for this exact use case.
+
+I wanted to solve that gap by building one myself. That also meant I had to convert and prepare the dataset on my own, because I could not find a ready-to-use version prepared for this training pipeline.
+
+---
+
+## 2. Setup
+
+### 2.1 Clone the repository
 ```bash
 git clone https://github.com/jantrw/traffic-sign-detector.git
 cd traffic-sign-detector
 ```
 
-### 1.2 Create and activate a virtual environment (recommended)
+### 2.2 Create and activate a virtual environment (recommended)
 **Linux / macOS**
 ```bash
 python3 -m venv yolov8traffictracking
@@ -54,7 +62,7 @@ python -m venv yolov8traffictracking
 # (or for cmd): yolov8traffictracking\Scripts\activate.bat
 ```
 
-### 1.3 Install dependencies
+### 2.3 Install dependencies
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
@@ -62,7 +70,7 @@ pip install -r requirements.txt
 
 Cloning this repo is not enough to run inference end-to-end. You must supply your own trained `.pt` model file.
 
-### 1.4 Model files
+### 2.4 Model files
 This repo does not include trained `.pt` weights.
 
 - `yolov8m.pt` is not stored in this repository.
@@ -70,7 +78,7 @@ This repo does not include trained `.pt` weights.
 - Training starts from the Ultralytics `yolov8m.pt` checkpoint name, which Ultralytics downloads if needed.
 - Inference requires your own local model path.
 
-### 1.5 Python wrapper scripts
+### 2.5 Python wrapper scripts
 The repo includes `run_detect.py` for local inference once you have a model file.
 
 **Example: single-image**
@@ -85,12 +93,12 @@ python run_detect.py C:/Users/deinUserName/Downloads/image.png --model path/to/b
 ```bash
 python run_detect.py images/ --model path/to/best.pt
 ```
-### 1.6 Troubleshooting quick guide
+### 2.6 Troubleshooting quick guide
 - **No detections:** try `--conf 0.01` or `conf=0.05` and `imgsz=1024`.  
 - **Detections but many false positives:** raise `conf` to `0.3–0.5`, use temporal smoothing in video (require detection in 2 consecutive frames).  
 - **Model checkpoint missing or wrong:** pass a valid local `.pt` path via `--model`. Use `yolo val model=... data=data/yolo_signs/data.yaml` to verify it.
 
-### 1.7 Detected Images
+### 2.7 Detected Images
 
 <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:flex-start;">
   <img src="images/predict/steileKurve.jpg" alt="steileKurve" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
@@ -99,14 +107,6 @@ python run_detect.py images/ --model path/to/best.pt
   <img src="images/predict/wild.jpg" alt="wild" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
   <img src="images/predict/Zeichen261.jpg" alt="Zeichen261" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
 </div>
-
----
-
-## 2. Why I Created This Project
-
-I created this project because I could not find a strong computer-vision project or German traffic sign detector that focused specifically on German road signs. Most available work was either too broad, mixed multiple countries, or did not provide a practical end-to-end detector for this exact use case.
-
-I wanted to solve that gap by building one myself. That also meant I had to convert and prepare the dataset on my own, because I could not find a ready-to-use version prepared for this training pipeline.
 
 ---
 
