@@ -31,7 +31,7 @@ A computer-vision project for detecting and classifying German traffic signs (bo
 8. [Inference example](#inference-example)  
 
 ---
-## Setup & Quick Start
+## Setup
 
 ### 1) Clone the repository
 ```bash
@@ -58,6 +58,9 @@ python -m venv yolov8traffictracking
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
+Cloning this repo is not enough to run inference end-to-end. You must supply your own trained `.pt` model file.
+
 ### 4) Model files
 This repo does not include trained `.pt` weights.
 
