@@ -20,15 +20,15 @@ A computer-vision project for detecting and classifying German traffic signs (bo
 ---
 
 ## Table of contents
-1. [1. Setup](#1-setup)
-   1.1 [1.7 Detected Images](#17-detected-images)
-2. [2. Training Pictures & Data](#2-training-pictures--data)
-3. [3. What This Repo Does (Summary)](#3-what-this-repo-does-summary)
-4. [4. Dataset](#4-dataset)
-5. [5. Convert & Prepare Dataset](#5-convert--prepare-dataset)
-6. [6. Validate Dataset](#6-validate-dataset)
-7. [7. Train (YOLOv8m) Example](#7-train-yolov8m-example)
-8. [8. Inference Example](#8-inference-example)
+1. [Setup](#1-setup)
+   1. [Detected Images](#17-detected-images)
+2. [Training Pictures & Data](#2-training-pictures--data)
+3. [What This Repo Does (Summary)](#3-what-this-repo-does-summary)
+4. [Dataset](#4-dataset)
+5. [Convert & Prepare Dataset](#5-convert--prepare-dataset)
+6. [Validate Dataset](#6-validate-dataset)
+7. [Train (YOLOv8m) Example](#7-train-yolov8m-example)
+8. [Inference Example](#8-inference-example)
 
 ---
 ## 1. Setup
