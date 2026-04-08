@@ -20,7 +20,7 @@ A computer-vision project for detecting and classifying German traffic signs (bo
 ---
 
 ## Table of contents
-1. [Reproduce](#reproduce)  
+1. [Setup](#setup)
    1.1 [Detected images](#detected-images)  
 2. [Training pictures & data](#training-pictures--data)  
 3. [What this repo does (summary)](#what-this-repo-does-summary)  
@@ -31,7 +31,7 @@ A computer-vision project for detecting and classifying German traffic signs (bo
 8. [Inference example](#inference-example)  
 
 ---
-## Reproduce & Quick Start
+## Setup & Quick Start
 
 ### 1) Clone the repository
 ```bash
@@ -58,45 +58,33 @@ python -m venv yolov8traffictracking
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
-### 4) Install Model & Git LFS (important)
-The model `training_results/yolov8m_run_013/weights/best.pt` is stored with **Git LFS** because it exceeds GitHub's 100 MB file size limit. After cloning the repo you **must** pull LFS objects to get the real `.pt` file (otherwise you only get a pointer file).
+### 4) Model files
+This repo does not include trained `.pt` weights.
 
-**Linux / macOS**
-```bash
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-sudo apt install git-lfs         # or use your distro package manager
-git lfs install
-```
+- `yolov8m.pt` is not stored in this repository.
+- `training_results/.../best.pt` is not stored in this repository.
+- Training starts from the Ultralytics `yolov8m.pt` checkpoint name, which Ultralytics downloads if needed.
+- Inference requires your own local model path.
 
-**Windows (PowerShell / admin)**
-```powershell
-choco install git-lfs # Or Download installer from https://git-lfs.github.com/
-git lfs install
-```
-**Download LFS objects (this fetches the real model and not just the pointer)**
-```bash
-git lfs pull        # fetches LFS objects for the current refs
-```
-
-## 5) Python wrapper scripts (recommended)
-The repo includes `run_detect.py` for convenient and reproducible runs.
+## 5) Python wrapper scripts
+The repo includes `run_detect.py` for local inference once you have a model file.
 
 **Example: single-image**
 ```bash
-python run_detect.py images/steileKurve.jpg
+python run_detect.py images/steileKurve.jpg --model path/to/best.pt
 ```
 **Example: with your own Image**
 ```bash
-python run_detect.py C:/Users/deinUserName/Downloads/image.png
+python run_detect.py C:/Users/deinUserName/Downloads/image.png --model path/to/best.pt
 ```
 **Example: multi-image detection**
 ```bash
-python run_detect.py images/
+python run_detect.py images/ --model path/to/best.pt
 ```
 ### 6) Troubleshooting quick guide
 - **No detections:** try `--conf 0.01` or `conf=0.05` and `imgsz=1024`.  
 - **Detections but many false positives:** raise `conf` to `0.3–0.5`, use temporal smoothing in video (require detection in 2 consecutive frames).  
-- **Model checkpoint missing or wrong:** ensure `training_results/.../best.pt` exists and is a detection checkpoint . Use `yolo val model=... data=data2.yaml` to verify performance on the validation set.  
+- **Model checkpoint missing or wrong:** pass a valid local `.pt` path via `--model`. Use `yolo val model=... data=data/yolo_signs/data.yaml` to verify it.
 
 ### 7) Detected Images
 
@@ -131,7 +119,7 @@ python run_detect.py images/
    - `classes.txt` (one class name per line)
    - `data.yaml` (YOLO/Ultralytics dataset file with relative paths)
 3. Validate dataset integrity with `scripts/validate_yolo_dataset.py`.
-4. Train YOLOv8 (we use `yolov8m.pt` by default) using `scripts/train_model/start_train.py` with W&B logging and TensorBoard.
+4. Train YOLOv8 using `scripts/train_model/start_train.py` with W&B logging and TensorBoard.
 
 ## Dataset
  **Current dataset:** 
@@ -220,7 +208,7 @@ python scripts/train_model/start_train.py
 Notes:
 - Adjust `batch` / `imgsz` to your GPU memory.  
 - The trainer supports W&B and prints a TensorBoard command if logs are enabled.  
-- If you see Git LFS pointer files instead of `.pt`, run `git lfs install` and `git lfs pull`.
+- Ultralytics downloads the base `yolov8m.pt` weights if they are not already present locally.
 
 ---
 
@@ -232,7 +220,7 @@ Below is a minimal snippet that runs inference and draws bounding boxes labeled 
 from ultralytics import YOLO
 import cv2, json, pathlib
 
-model = YOLO("runs/train/your_run/weights/best.pt")  # or yolov8m.pt (finetune)
+model = YOLO("runs/train/your_run/weights/best.pt")
 res = model("some_test_image.jpg")                   # returns results
 
 # load class names

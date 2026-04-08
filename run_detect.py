@@ -2,15 +2,14 @@
 # run_detect.py
 """
 Usage:
-  python run_detect.py path/to/image.jpg
-  python run_detect.py path/to/image.jpg --copy-dest C:/tmp/repo_copy --conf 0.05 --iou 0.4 --imgsz 1024 --save-txt
+  python run_detect.py path/to/image.jpg --model path/to/model.pt
+  python run_detect.py path/to/image.jpg --model path/to/model.pt --copy-dest C:/tmp/repo_copy --conf 0.05 --iou 0.4 --imgsz 1024 --save-txt
 """
 
 import argparse
 import os
 import shutil
 import sys
-from ultralytics import YOLO
 import glob
 import time
 
@@ -33,7 +32,7 @@ def copy_repo(dest):
 def main():
     p = argparse.ArgumentParser(description="Run YOLO detect predict from Python (wrapper).")
     p.add_argument("image", help="Path to input image")
-    p.add_argument("--model", default="training_results/yolov8m_run_013/weights/best.pt", help="Path to model .pt")
+    p.add_argument("--model", required=True, help="Path to model .pt")
     p.add_argument("--conf", type=float, default=0.3, help="Confidence threshold (e.g. 0.3)")
     p.add_argument("--iou", type=float, default=0.45, help="NMS IoU threshold (e.g. 0.45)")
     p.add_argument("--imgsz", type=int, default=640, help="Inference image size (px)")
@@ -53,6 +52,12 @@ def main():
         except Exception as e:
             print("Failed to copy repo:", e, file=sys.stderr)
             sys.exit(3)
+
+    try:
+        from ultralytics import YOLO
+    except ImportError:
+        print("ERROR: ultralytics is not installed. Run 'pip install -r requirements.txt'.", file=sys.stderr)
+        sys.exit(4)
 
     print(f"Loading model: {args.model}")
     model = YOLO(args.model)

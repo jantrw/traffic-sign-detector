@@ -15,7 +15,7 @@ def main():
         project="synset_signset_germany",
         name="yolov8m_run_01",
         config={
-            "model": "yolov8m.pt",
+            "model": "yolov8m.pt (resolved by ultralytics)",
             "data": "data/yolo_signs/data.yaml",
             "epochs": 50,
             "imgsz": 640,

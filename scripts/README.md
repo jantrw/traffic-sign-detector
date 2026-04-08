@@ -20,13 +20,9 @@ Top-level `scripts/` folder contains:
 
 - `test_gpu_support.py` — Small helper to check if PyTorch detects a CUDA GPU and prints device info.
 
-Subfolder `scripts/train_model/` contains training utilities and weights:
+Subfolder `scripts/train_model/` contains training utilities:
 
-- `start_train.py` — Entrypoint to start YOLOv8 training (wrapped for Windows multiprocessing support and integrated with Weights & Biases). Uses `yolov8m.pt` by default. Make sure `start_train.py` is guarded with `if __name__ == '__main__':`.
-
-- `yolov8m.pt` — Pretrained YOLOv8m weights (used as backbone).
-
-- `yolo11n.pt` — Small auxiliary weights sometimes used by helper components (optional tho).
+- `start_train.py` — Entrypoint to start YOLOv8 training (wrapped for Windows multiprocessing support and integrated with Weights & Biases). It uses the Ultralytics checkpoint name `yolov8m.pt`, which Ultralytics downloads if needed. Make sure `start_train.py` is guarded with `if __name__ == '__main__':`.
 
 - `README.md` — (this file) — lives at `scripts/README.md`.
 
@@ -137,7 +133,7 @@ python scripts/train_model/start_train.py
 
 Notes:
 
-- `start_train.py` uses `YOLO('yolov8m.pt')` and calls `model.train(...)` with sensible defaults. It initializes a W&B run (if logged in) and is Windows-safe (`multiprocessing.freeze_support()` + `if __name__ == '__main__'`).
+- `start_train.py` uses `YOLO('yolov8m.pt')` and calls `model.train(...)` with sensible defaults. Ultralytics resolves that checkpoint name and downloads it if needed. It initializes a W&B run (if logged in) and is Windows-safe (`multiprocessing.freeze_support()` + `if __name__ == '__main__'`).
 - If you experience Windows multiprocessing errors, open `start_train.py` and set `workers=0` in the `model.train()` call.
 - TensorBoard is available; the trainer prints the `tensorboard --logdir ...` command in the console. W&B links to the run are printed as well.
 

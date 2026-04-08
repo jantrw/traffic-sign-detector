@@ -27,4 +27,9 @@ data/yolo_signs/train/images/*
 data/yolo_signs/train/labels/*
 !data/yolo_signs/train/labels/
 
+*.pt
+training_results/
+synset_signset_germany/
+__pycache__/
+
 
