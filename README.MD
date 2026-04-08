@@ -1,20 +1,10 @@
 <div align="center">
   <h1>YOLOv8 Traffic Sign Detector</h1>
   <p><strong>Focused computer-vision workflow for German road-sign detection, from raw dataset conversion to YOLOv8 training and inference.</strong></p>
-  <p>
-    <a href="https://www.python.org/" target="_blank" rel="noreferrer">
-      <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python">
-    </a>
-    <a href="https://docs.ultralytics.com/" target="_blank" rel="noreferrer">
-      <img src="https://img.shields.io/badge/Ultralytics-YOLOv8-111827" alt="Ultralytics YOLOv8">
-    </a>
-    <a href="https://owncloud.fraunhofer.de/index.php/s/OLQ6E5BVN4pRGu8?path=%2FSynsetSignsetGermany" target="_blank" rel="noreferrer">
-      <img src="https://img.shields.io/badge/Dataset-SynsetSignsetGermany-0F766E" alt="Dataset">
-    </a>
-    <a href="https://www.kaggle.com/learn/computer-vision" target="_blank" rel="noreferrer">
-      <img src="https://img.shields.io/badge/Kaggle-Computer%20Vision-20BEFF?logo=kaggle&logoColor=white" alt="Kaggle">
-    </a>
-  </p>
+  <p><a href="https://www.python.org/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python"></a>
+  <a href="https://docs.ultralytics.com/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Ultralytics-YOLOv8-111827" alt="Ultralytics YOLOv8"></a>
+  <a href="https://owncloud.fraunhofer.de/index.php/s/OLQ6E5BVN4pRGu8?path=%2FSynsetSignsetGermany" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Dataset-SynsetSignsetGermany-0F766E" alt="Dataset"></a>
+  <a href="https://www.kaggle.com/learn/computer-vision" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Kaggle-Computer%20Vision-20BEFF?logo=kaggle&logoColor=white" alt="Kaggle"></a></p>
   <p>
     <a href="#key-features">Key Features</a> •
     <a href="#2-overview">Overview</a> •
@@ -28,17 +18,9 @@
 This repository is built around a narrow goal: detect and classify German traffic signs with a dedicated pipeline instead of relying on broad or mixed-country detection projects. It includes the missing glue work too, especially dataset conversion and preparation, so the raw SynsetSignsetGermany source can be turned into a usable YOLOv8 training set.
 
 <!-- Preview: small thumbnails (centered, clean, no borders) -->
-<div align="center" style="margin: 16px 0;">
-  <a href="images/predict/steileKurve.jpg">
-    <img src="images/predict/steileKurve.jpg" alt="steileKurve" width="260px" height="350px">
-  </a>
-  <a href="images/predict/vorfahrt_blauerHimmel.jpg">
-    <img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel" width="260px" height="350px">
-  </a>
-  <a href="images/predict/wild.jpg">
-    <img src="images/predict/wild.jpg" alt="wild" width="260px" height="350px">
-  </a>
-</div>
+<div align="center" style="margin: 16px 0;"><a href="images/predict/steileKurve.jpg"><img src="images/predict/steileKurve.jpg" alt="steileKurve" width="260px" height="350px"></a>
+<a href="images/predict/vorfahrt_blauerHimmel.jpg"><img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel" width="260px" height="350px"></a>
+<a href="images/predict/wild.jpg"><img src="images/predict/wild.jpg" alt="wild" width="260px" height="350px"></a></div>
 
 ---
 ## Key Features
