@@ -22,13 +22,14 @@ A computer-vision project for detecting and classifying German traffic signs (bo
 ## Table of contents
 1. [Setup](#1-setup)
    1. [Detected Images](#17-detected-images)
-2. [Training Pictures & Data](#2-training-pictures--data)
-3. [What This Repo Does (Summary)](#3-what-this-repo-does-summary)
-4. [Dataset](#4-dataset)
-5. [Convert & Prepare Dataset](#5-convert--prepare-dataset)
-6. [Validate Dataset](#6-validate-dataset)
-7. [Train (YOLOv8m) Example](#7-train-yolov8m-example)
-8. [Inference Example](#8-inference-example)
+2. [Why I Created This Project](#2-why-i-created-this-project)
+3. [Training Pictures and Data](#3-training-pictures-and-data)
+4. [What This Repo Does (Summary)](#4-what-this-repo-does-summary)
+5. [Dataset](#5-dataset)
+6. [Convert and Prepare Dataset](#6-convert-and-prepare-dataset)
+7. [Validate Dataset](#7-validate-dataset)
+8. [Train (YOLOv8m) Example](#8-train-yolov8m-example)
+9. [Inference Example](#9-inference-example)
 
 ---
 ## 1. Setup
@@ -101,7 +102,15 @@ python run_detect.py images/ --model path/to/best.pt
 
 ---
 
-## 2. Training Pictures & Data
+## 2. Why I Created This Project
+
+I created this project because I could not find a strong computer-vision project or German traffic sign detector that focused specifically on German road signs. Most available work was either too broad, mixed multiple countries, or did not provide a practical end-to-end detector for this exact use case.
+
+I wanted to solve that gap by building one myself. That also meant I had to convert and prepare the dataset on my own, because I could not find a ready-to-use version prepared for this training pipeline.
+
+---
+
+## 3. Training Pictures and Data
 
 
 ### Training Batches with Border
@@ -113,7 +122,7 @@ python run_detect.py images/ --model path/to/best.pt
 ![ConfusionMatrixNormalized](images/helper/confusion_matrix_normalized.png)
 
 
-## 3. What This Repo Does (Summary)
+## 4. What This Repo Does (Summary)
 
 1. Convert SynsetSignsetGermany → YOLO format (images + `.txt` labels with normalized bboxes).
 2. Produce `data/yolo_signs` containing:
@@ -124,7 +133,7 @@ python run_detect.py images/ --model path/to/best.pt
 3. Validate dataset integrity with `scripts/validate_yolo_dataset.py`.
 4. Train YOLOv8 using `scripts/train_model/start_train.py` with W&B logging and TensorBoard.
 
-## 4. Dataset
+## 5. Dataset
  **Current dataset:** 
 `SynsetSignsetGermany` (replaces GTSRB for this project).
 
@@ -151,7 +160,7 @@ Notes:
 
 ---
 
-## 5. Convert & Prepare Dataset
+## 6. Convert and Prepare Dataset
 
 From project root, example conversion command:
 ```
@@ -166,7 +175,7 @@ This will compute bboxes from masks and write images + `.txt` labels into `data/
 
 ---
 
-## 6. Validate Dataset
+## 7. Validate Dataset
 
 Quick check:
 ```bash
@@ -177,7 +186,7 @@ What it prints:
 - up to N sample images missing labels, or labels missing images,  
 - basic YOLO label format issues.
 
-### 6.1 Generate `data.yaml` (relative paths)
+### 7.1 Generate `data.yaml` (relative paths)
 
 Run:
 ```
@@ -200,7 +209,7 @@ Important: Ultralytics accepts either `names` list or mapping; `classes.txt` can
 
 ---
 
-## 7. Train (YOLOv8m) Example
+## 8. Train (YOLOv8m) Example
 
 Start training locally (example):
 ```bash
@@ -215,7 +224,7 @@ Notes:
 
 ---
 
-## 8. Inference Example
+## 9. Inference Example
 
 Below is a minimal snippet that runs inference and draws bounding boxes labeled by class names (labels come from `classes.txt`):
 
