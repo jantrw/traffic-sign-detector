@@ -2,10 +2,18 @@
   <h1>YOLOv8 Traffic Sign Detector</h1>
   <p><strong>Focused computer-vision workflow for German road-sign detection, from raw dataset conversion to YOLOv8 training and inference.</strong></p>
   <p>
-    <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python">
-    <img src="https://img.shields.io/badge/Ultralytics-YOLOv8-111827" alt="Ultralytics YOLOv8">
-    <img src="https://img.shields.io/badge/Dataset-SynsetSignsetGermany-0F766E" alt="Dataset">
-    <img src="https://img.shields.io/badge/Kaggle-Computer%20Vision-20BEFF?logo=kaggle&logoColor=white" alt="Kaggle">
+    <a href="https://www.python.org/" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python">
+    </a>
+    <a href="https://docs.ultralytics.com/" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/Ultralytics-YOLOv8-111827" alt="Ultralytics YOLOv8">
+    </a>
+    <a href="https://owncloud.fraunhofer.de/index.php/s/OLQ6E5BVN4pRGu8?path=%2FSynsetSignsetGermany" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/Dataset-SynsetSignsetGermany-0F766E" alt="Dataset">
+    </a>
+    <a href="https://www.kaggle.com/learn/computer-vision" target="_blank" rel="noreferrer">
+      <img src="https://img.shields.io/badge/Kaggle-Computer%20Vision-20BEFF?logo=kaggle&logoColor=white" alt="Kaggle">
+    </a>
   </p>
   <p>
     <a href="#key-features">Key Features</a> •
