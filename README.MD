@@ -1,8 +1,23 @@
-# YOLOv8 Traffic Sign Detector
+<div align="center">
+  <h1>YOLOv8 Traffic Sign Detector</h1>
+  <p><strong>Focused computer-vision workflow for German road-sign detection, from raw dataset conversion to YOLOv8 training and inference.</strong></p>
+  <p>
+    <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python">
+    <img src="https://img.shields.io/badge/Ultralytics-YOLOv8-111827" alt="Ultralytics YOLOv8">
+    <img src="https://img.shields.io/badge/Dataset-SynsetSignsetGermany-0F766E" alt="Dataset">
+    <img src="https://img.shields.io/badge/Kaggle-Computer%20Vision-20BEFF?logo=kaggle&logoColor=white" alt="Kaggle">
+  </p>
+  <p>
+    <a href="#key-features">Key Features</a> •
+    <a href="#2-overview">Overview</a> •
+    <a href="#3-training">Training</a> •
+    <a href="#4-dataset">Dataset</a> •
+    <a href="#5-setup">Setup</a> •
+    <a href="#6-inference-example">Inference</a>
+  </p>
+</div>
 
----
-
-A computer-vision project for detecting and classifying German traffic signs (bounding boxes + class labels). This repository provides conversion tools, validators and training scripts to convert the SynsetSignsetGermany raw data into a YOLOv8-compatible dataset, train a YOLOv8 model, and run inference.
+This repository is built around a narrow goal: detect and classify German traffic signs with a dedicated pipeline instead of relying on broad or mixed-country detection projects. It includes the missing glue work too, especially dataset conversion and preparation, so the raw SynsetSignsetGermany source can be turned into a usable YOLOv8 training set.
 
 <!-- Preview: small thumbnails (centered, clean, no borders) -->
 <div align="center" style="margin: 16px 0;">
@@ -18,111 +33,16 @@ A computer-vision project for detecting and classifying German traffic signs (bo
 </div>
 
 ---
+## Key Features
 
-## Table of contents
-1. [Why I Created This Project](#1-why-i-created-this-project)
-2. [Setup](#2-setup)
-   1. [Detected Images](#27-detected-images)
-3. [Training Pictures and Data](#3-training-pictures-and-data)
-4. [What This Repo Does (Summary)](#4-what-this-repo-does-summary)
-5. [Dataset](#5-dataset)
-6. [Convert and Prepare Dataset](#6-convert-and-prepare-dataset)
-7. [Validate Dataset](#7-validate-dataset)
-8. [Train (YOLOv8m) Example](#8-train-yolov8m-example)
-9. [Inference Example](#9-inference-example)
-
----
-## 1. Why I Created This Project
-
-I created this project because I could not find a strong computer-vision project or German traffic sign detector that focused specifically on German road signs. Most available work was either too broad, mixed multiple countries, or did not provide a practical end-to-end detector for this exact use case.
-
-I wanted to solve that gap by building one myself. That also meant I had to convert and prepare the dataset on my own, because I could not find a ready-to-use version prepared for this training pipeline.
+- Focused on German road signs instead of a broad mixed-country detector.
+- Converts and prepares SynsetSignsetGermany for a YOLOv8 workflow.
+- Includes validation scripts, training entrypoints, and inference helpers.
+- Keeps example predictions and training outputs directly in the repository.
 
 ---
 
-## 2. Setup
-
-### 2.1 Clone the repository
-```bash
-git clone https://github.com/jantrw/traffic-sign-detector.git
-cd traffic-sign-detector
-```
-
-### 2.2 Create and activate a virtual environment (recommended)
-**Linux / macOS**
-```bash
-python3 -m venv yolov8traffictracking
-source yolov8traffictracking/bin/activate
-```
-
-**Windows (PowerShell)**
-```powershell
-python -m venv yolov8traffictracking
-.\yolov8traffictracking\Scripts\Activate.ps1
-# (or for cmd): yolov8traffictracking\Scripts\activate.bat
-```
-
-### 2.3 Install dependencies
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-Cloning this repo is not enough to run inference end-to-end. You must supply your own trained `.pt` model file.
-
-### 2.4 Model files
-This repo does not include trained `.pt` weights.
-
-- `yolov8m.pt` is not stored in this repository.
-- `training_results/.../best.pt` is not stored in this repository.
-- Training starts from the Ultralytics `yolov8m.pt` checkpoint name, which Ultralytics downloads if needed.
-- Inference requires your own local model path.
-
-### 2.5 Python wrapper scripts
-The repo includes `run_detect.py` for local inference once you have a model file.
-
-**Example: single-image**
-```bash
-python run_detect.py images/steileKurve.jpg --model path/to/best.pt
-```
-**Example: with your own Image**
-```bash
-python run_detect.py C:/Users/deinUserName/Downloads/image.png --model path/to/best.pt
-```
-**Example: multi-image detection**
-```bash
-python run_detect.py images/ --model path/to/best.pt
-```
-### 2.6 Troubleshooting quick guide
-- **No detections:** try `--conf 0.01` or `conf=0.05` and `imgsz=1024`.  
-- **Detections but many false positives:** raise `conf` to `0.3–0.5`, use temporal smoothing in video (require detection in 2 consecutive frames).  
-- **Model checkpoint missing or wrong:** pass a valid local `.pt` path via `--model`. Use `yolo val model=... data=data/yolo_signs/data.yaml` to verify it.
-
-### 2.7 Detected Images
-
-<div style="display:flex; flex-wrap:wrap; gap:8px; align-items:flex-start;">
-  <img src="images/predict/steileKurve.jpg" alt="steileKurve" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
-  <img src="images/predict/steinschlag.jpg" alt="steinschlag" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
-  <img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
-  <img src="images/predict/wild.jpg" alt="wild" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
-  <img src="images/predict/Zeichen261.jpg" alt="Zeichen261" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
-</div>
-
----
-
-## 3. Training Pictures and Data
-
-
-### Training Batches with Border
-![Training_Batches_Image](images/helper/val_batch1_labels.jpg)
-### Training Data in resumed Training (=14 Epochs)
-![Trainign_Data](images/helper/results.png)
-
-### Confusion Matrix Normalized: Recognition Rate in Percentages
-![ConfusionMatrixNormalized](images/helper/confusion_matrix_normalized.png)
-
-
-## 4. What This Repo Does (Summary)
+## 2. Overview
 
 1. Convert SynsetSignsetGermany → YOLO format (images + `.txt` labels with normalized bboxes).
 2. Produce `data/yolo_signs` containing:
@@ -133,7 +53,32 @@ python run_detect.py images/ --model path/to/best.pt
 3. Validate dataset integrity with `scripts/validate_yolo_dataset.py`.
 4. Train YOLOv8 using `scripts/train_model/start_train.py` with W&B logging and TensorBoard.
 
-## 5. Dataset
+---
+
+## 3. Training
+
+### 3.1 Training Pictures and Data
+
+![Training_Batches_Image](images/helper/val_batch1_labels.jpg)
+![Trainign_Data](images/helper/results.png)
+![ConfusionMatrixNormalized](images/helper/confusion_matrix_normalized.png)
+
+### 3.2 Train (YOLOv8m) Example
+
+Start training locally (example):
+```bash
+python scripts/train_model/start_train.py
+# or with ultralytics directly:
+# python -c "from ultralytics import YOLO; YOLO('yolov8m.pt').train(data='data/yolo_signs/data.yaml', epochs=50, imgsz=640, batch=16, name='yolov8m_run')"
+```
+Notes:
+- Adjust `batch` / `imgsz` to your GPU memory.  
+- The trainer supports W&B and prints a TensorBoard command if logs are enabled.  
+- Ultralytics downloads the base `yolov8m.pt` weights if they are not already present locally.
+
+---
+
+## 4. Dataset
  **Current dataset:** 
 `SynsetSignsetGermany` (replaces GTSRB for this project).
 
@@ -158,9 +103,7 @@ Notes:
 - Masks and Labels folders are used to extract bounding boxes (masks -> contours -> bbox).
 - Many helper scripts expect these folders to exist under `data/raw/SynsetSignsetGermany`.
 
----
-
-## 6. Convert and Prepare Dataset
+### 4.1 Convert and Prepare Dataset
 
 From project root, example conversion command:
 ```
@@ -173,9 +116,7 @@ python scripts/convert_synset_to_yolo.py `
 ```
 This will compute bboxes from masks and write images + `.txt` labels into `data/yolo_signs/train|val`.
 
----
-
-## 7. Validate Dataset
+### 4.2 Validate Dataset
 
 Quick check:
 ```bash
@@ -186,7 +127,7 @@ What it prints:
 - up to N sample images missing labels, or labels missing images,  
 - basic YOLO label format issues.
 
-### 7.1 Generate `data.yaml` (relative paths)
+### 4.3 Generate `data.yaml` (relative paths)
 
 Run:
 ```
@@ -209,22 +150,77 @@ Important: Ultralytics accepts either `names` list or mapping; `classes.txt` can
 
 ---
 
-## 8. Train (YOLOv8m) Example
+## 5. Setup
 
-Start training locally (example):
+### 5.1 Clone the repository
 ```bash
-python scripts/train_model/start_train.py
-# or with ultralytics directly:
-# python -c "from ultralytics import YOLO; YOLO('yolov8m.pt').train(data='data/yolo_signs/data.yaml', epochs=50, imgsz=640, batch=16, name='yolov8m_run')"
+git clone https://github.com/jantrw/traffic-sign-detector.git
+cd traffic-sign-detector
 ```
-Notes:
-- Adjust `batch` / `imgsz` to your GPU memory.  
-- The trainer supports W&B and prints a TensorBoard command if logs are enabled.  
-- Ultralytics downloads the base `yolov8m.pt` weights if they are not already present locally.
+
+### 5.2 Create and activate a virtual environment (recommended)
+**Linux / macOS**
+```bash
+python3 -m venv yolov8traffictracking
+source yolov8traffictracking/bin/activate
+```
+
+**Windows (PowerShell)**
+```powershell
+python -m venv yolov8traffictracking
+.\yolov8traffictracking\Scripts\Activate.ps1
+# (or for cmd): yolov8traffictracking\Scripts\activate.bat
+```
+
+### 5.3 Install dependencies
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+Cloning this repo is not enough to run inference end-to-end. You must supply your own trained `.pt` model file.
+
+### 5.4 Model files
+This repo does not include trained `.pt` weights.
+
+- `yolov8m.pt` is not stored in this repository.
+- `training_results/.../best.pt` is not stored in this repository.
+- Training starts from the Ultralytics `yolov8m.pt` checkpoint name, which Ultralytics downloads if needed.
+- Inference requires your own local model path.
+
+### 5.5 Python wrapper scripts
+The repo includes `run_detect.py` for local inference once you have a model file.
+
+**Example: single-image**
+```bash
+python run_detect.py images/steileKurve.jpg --model path/to/best.pt
+```
+**Example: with your own Image**
+```bash
+python run_detect.py C:/Users/deinUserName/Downloads/image.png --model path/to/best.pt
+```
+**Example: multi-image detection**
+```bash
+python run_detect.py images/ --model path/to/best.pt
+```
+### 5.6 Troubleshooting quick guide
+- **No detections:** try `--conf 0.01` or `conf=0.05` and `imgsz=1024`.  
+- **Detections but many false positives:** raise `conf` to `0.3–0.5`, use temporal smoothing in video (require detection in 2 consecutive frames).  
+- **Model checkpoint missing or wrong:** pass a valid local `.pt` path via `--model`. Use `yolo val model=... data=data/yolo_signs/data.yaml` to verify it.
+
+### 5.7 Detected Images
+
+<div style="display:flex; flex-wrap:wrap; gap:8px; align-items:flex-start;">
+  <img src="images/predict/steileKurve.jpg" alt="steileKurve" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
+  <img src="images/predict/steinschlag.jpg" alt="steinschlag" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
+  <img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
+  <img src="images/predict/wild.jpg" alt="wild" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
+  <img src="images/predict/Zeichen261.jpg" alt="Zeichen261" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
+</div>
 
 ---
 
-## 9. Inference Example
+## 6. Inference Example
 
 Below is a minimal snippet that runs inference and draws bounding boxes labeled by class names (labels come from `classes.txt`):
 
