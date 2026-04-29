@@ -17,18 +17,12 @@
 
 This repository is built around a narrow goal: detect and classify German traffic signs with a dedicated pipeline instead of relying on broad or mixed-country detection projects. It includes the missing glue work too, especially dataset conversion and preparation, so the raw SynsetSignsetGermany source can be turned into a usable YOLOv8 training set.
 
-<!-- Preview: larger images, wrap on narrow screens -->
-<div align="center" style="display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin:16px 0;">
-  <a href="images/predict/steileKurve.jpg">
-    <img src="images/predict/steileKurve.jpg" alt="steileKurve" style="width:min(100%, 320px); height:420px; object-fit:cover;">
-  </a>
-  <a href="images/predict/vorfahrt_blauerHimmel.jpg">
-    <img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel" style="width:min(100%, 320px); height:420px; object-fit:cover;">
-  </a>
-  <a href="images/predict/wild.jpg">
-    <img src="images/predict/wild.jpg" alt="wild" style="width:min(100%, 320px); height:420px; object-fit:cover;">
-  </a>
-</div>
+<!-- Preview: GitHub-friendly inline images -->
+<p align="center">
+  <a href="images/predict/steileKurve.jpg"><img src="images/predict/steileKurve.jpg" alt="steileKurve" width="280" height="370"></a>
+  <a href="images/predict/vorfahrt_blauerHimmel.jpg"><img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel" width="280" height="370"></a>
+  <a href="images/predict/wild.jpg"><img src="images/predict/wild.jpg" alt="wild" width="280" height="370"></a>
+</p>
 
 ---
 ## Key Features
