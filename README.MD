@@ -1,21 +1,25 @@
 <div align="center">
   <h1>YOLOv8 Traffic Sign Detector</h1>
   <p><strong>Focused computer-vision workflow for German road-sign detection, from raw dataset conversion to YOLOv8 training and inference.</strong></p>
-  <p><a href="https://www.python.org/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python"></a>
-  <a href="https://docs.ultralytics.com/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Ultralytics-YOLOv8-111827" alt="Ultralytics YOLOv8"></a>
-  <a href="https://owncloud.fraunhofer.de/index.php/s/OLQ6E5BVN4pRGu8?path=%2FSynsetSignsetGermany" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Dataset-SynsetSignsetGermany-0F766E" alt="Dataset"></a>
-  <a href="https://www.kaggle.com/learn/computer-vision" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Kaggle-Computer%20Vision-20BEFF?logo=kaggle&logoColor=white" alt="Kaggle"></a></p>
   <p>
-    <a href="#key-features">Key Features</a> •
+    <a href="https://www.python.org/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python"></a>
+    <a href="https://docs.ultralytics.com/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Ultralytics-YOLOv8-111827" alt="Ultralytics YOLOv8"></a>
+    <a href="https://numpy.org/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/NumPy-2.2.6-013243?logo=numpy&logoColor=white" alt="NumPy"></a>
+    <a href="https://pytorch.org/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/PyTorch-2.8.0-EE4C2C?logo=pytorch&logoColor=white" alt="PyTorch"></a>
+    <a href="https://www.tensorflow.org/" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/TensorFlow-2.15.0-FF6F00?logo=tensorflow&logoColor=white" alt="TensorFlow"></a>
+    <a href="https://owncloud.fraunhofer.de/index.php/s/OLQ6E5BVN4pRGu8?path=%2FSynsetSignsetGermany" target="_blank" rel="noreferrer"><img src="https://img.shields.io/badge/Dataset-SynsetSignsetGermany-0F766E" alt="Dataset"></a>
+  </p>
+  <p>
+    <a href="#1-key-features">Key Features</a> •
     <a href="#2-overview">Overview</a> •
-    <a href="#3-training">Training</a> •
+    <a href="#3-setup">Setup</a> •
     <a href="#4-dataset">Dataset</a> •
-    <a href="#5-setup">Setup</a> •
-    <a href="#6-inference-example">Inference</a>
+    <a href="#5-training">Training</a> •
+    <a href="#6-inference">Inference</a>
   </p>
 </div>
 
-This repository is built around a narrow goal: detect and classify German traffic signs with a dedicated pipeline instead of relying on broad or mixed-country detection projects. It includes the missing glue work too, especially dataset conversion and preparation, so the raw SynsetSignsetGermany source can be turned into a usable YOLOv8 training set.
+This repository is built around a narrow goal: detect and classify German traffic signs with a dedicated pipeline instead of relying on broad or mixed-country detection projects. It also includes the full glue code for dataset conversion, validation, training, and local inference, based on a `SynsetSignsetGermany` dataset that I manually reviewed and validated to ensure a clean YOLO-compatible structure and annotation workflow.
 
 <!-- Preview: GitHub-friendly inline images -->
 <p align="center">
@@ -25,182 +29,187 @@ This repository is built around a narrow goal: detect and classify German traffi
 </p>
 
 ---
-## Key Features
 
-- Focused on German road signs instead of a broad mixed-country detector.
-- Converts and prepares SynsetSignsetGermany for a YOLOv8 workflow.
+## 1. Key Features
+
+- Focused on German road signs instead of a mixed-country detector.
+- Converts `SynsetSignsetGermany` into a YOLOv8-ready dataset.
 - Includes validation scripts, training entrypoints, and inference helpers.
-- Keeps example predictions and training outputs directly in the repository.
+- Keeps example predictions and training outputs in the repository.
 
 ---
 
 ## 2. Overview
 
-1. Convert SynsetSignsetGermany → YOLO format (images + `.txt` labels with normalized bboxes).
-2. Produce `data/yolo_signs` containing:
-   - `train/images`, `train/labels`
-   - `val/images`,   `val/labels`
-   - `classes.txt` (one class name per line)
-   - `data.yaml` (YOLO/Ultralytics dataset file with relative paths)
+1. Convert `SynsetSignsetGermany` to YOLO format with normalized bounding boxes.
+2. Produce `data/yolo_signs` with `train/`, `val/`, `classes.txt`, and `data.yaml`.
 3. Validate dataset integrity with `scripts/validate_yolo_dataset.py`.
-4. Train YOLOv8 using `scripts/train_model/start_train.py` with W&B logging and TensorBoard.
+4. Train YOLOv8 with `scripts/train_model/start_train.py`.
+5. Run local inference with `run_detect.py` and your trained `.pt` weights.
 
 ---
 
-## 3. Training
+## 3. Setup
 
-### 3.1 Training Pictures and Data
+### 3.1 Clone the repository
 
-![Training_Batches_Image](images/helper/val_batch1_labels.jpg)
-![Trainign_Data](images/helper/results.png)
-![ConfusionMatrixNormalized](images/helper/confusion_matrix_normalized.png)
-
-### 3.2 Train (YOLOv8m) Example
-
-Start training locally (example):
-```bash
-python scripts/train_model/start_train.py
-# or with ultralytics directly:
-# python -c "from ultralytics import YOLO; YOLO('yolov8m.pt').train(data='data/yolo_signs/data.yaml', epochs=50, imgsz=640, batch=16, name='yolov8m_run')"
-```
-Notes:
-- Adjust `batch` / `imgsz` to your GPU memory.  
-- The trainer supports W&B and prints a TensorBoard command if logs are enabled.  
-- Ultralytics downloads the base `yolov8m.pt` weights if they are not already present locally.
-
----
-
-## 4. Dataset
- **Current dataset:** 
-`SynsetSignsetGermany` (replaces GTSRB for this project).
-
-Download location (example / internal):  
-https://owncloud.fraunhofer.de/index.php/s/OLQ6E5BVN4pRGu8?path=%2FSynsetSignsetGermany
-
-Place the extracted SynsetSignsetGermany archive under `data/raw/` so the converter scripts can find the expected folders.
-
-Typical extracted structure (important folders):
-
-```
-data/raw/SynsetSignsetGermany/
-  Ogre/               # images organized in class subfolders (0..210)
-  Masks/              # masks per-class (0..210) used to compute bboxes
-  Labels/             # optional semantic labels per-class (0..210)
-  CsvFiles/           # various csv splits and metadata (optional)
-  Cycles/             # JSON metadata per-image (optional)
-```
-
-Notes:
-- Each Ogre class folder contains the original image files + .json with metadata (e.g. `0_ogre.png`, `0_ogre.json`, `1_ogre.png`,`1_ogre.json` …).
-- Masks and Labels folders are used to extract bounding boxes (masks -> contours -> bbox).
-- Many helper scripts expect these folders to exist under `data/raw/SynsetSignsetGermany`.
-
-### 4.1 Convert and Prepare Dataset
-
-From project root, example conversion command:
-```
-python scripts/convert_synset_to_yolo.py `
-   --raw data/raw/SynsetSignsetGermany `
-   --masks data/raw/SynsetSignsetGermany/Masks `
-   --semantic data/raw/SynsetSignsetGermany/Labels `
-   --out data/yolo_signs `
-   --split 0.8 0.2 0.0
-```
-This will compute bboxes from masks and write images + `.txt` labels into `data/yolo_signs/train|val`.
-
-### 4.2 Validate Dataset
-
-Quick check:
-```bash
-python scripts/validate_yolo_dataset.py
-```
-What it prints:
-- counts for `train` and `val` images/labels,  
-- up to N sample images missing labels, or labels missing images,  
-- basic YOLO label format issues.
-
-### 4.3 Generate `data.yaml` (relative paths)
-
-Run:
-```
-python scripts/create_data_yaml.py 
-```
-`data/yolo_signs/data.yaml` will use relative paths (so the trainer resolves `train: train/images`, `val: val/images` when `path: .`).
-
-Example `data.yaml` contents:
-
-path: data/yolo_signs
-train: train/images
-val:   val/images
-nc:    211
-names:
-  0: "0_Geschwindigkeit20"
-  1: "100_VerbotReiter"
-  ...
-
-Important: Ultralytics accepts either `names` list or mapping; `classes.txt` can be used by many visualization tools to map id->name.
-
----
-
-## 5. Setup
-
-### 5.1 Clone the repository
 ```bash
 git clone https://github.com/jantrw/traffic-sign-detector.git
 cd traffic-sign-detector
 ```
 
-### 5.2 Create and activate a virtual environment (recommended)
+### 3.2 Create and activate a virtual environment
+
 **Linux / macOS**
+
 ```bash
-python3 -m venv yolov8traffictracking
-source yolov8traffictracking/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
 **Windows (PowerShell)**
+
 ```powershell
-python -m venv yolov8traffictracking
-.\yolov8traffictracking\Scripts\Activate.ps1
-# (or for cmd): yolov8traffictracking\Scripts\activate.bat
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 ```
 
-### 5.3 Install dependencies
+### 3.3 Install dependencies
+
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Cloning this repo is not enough to run inference end-to-end. You must supply your own trained `.pt` model file.
+### 3.4 Model files
 
-### 5.4 Model files
-This repo does not include trained `.pt` weights.
+Cloning this repository is not enough for end-to-end inference. You need your own local model file.
 
 - `yolov8m.pt` is not stored in this repository.
 - `training_results/.../best.pt` is not stored in this repository.
-- Training starts from the Ultralytics `yolov8m.pt` checkpoint name, which Ultralytics downloads if needed.
-- Inference requires your own local model path.
+- Ultralytics downloads `yolov8m.pt` automatically during training if needed.
+- Inference requires a valid local `.pt` path passed via `--model`.
 
-### 5.5 Python wrapper scripts
-The repo includes `run_detect.py` for local inference once you have a model file.
+---
 
-**Example: single-image**
+## 4. Dataset
+
+**Current dataset:** `SynsetSignsetGermany`
+
+Download location:
+https://owncloud.fraunhofer.de/index.php/s/OLQ6E5BVN4pRGu8?path=%2FSynsetSignsetGermany
+
+Place the extracted archive under `data/raw/` so the scripts can find the expected folders.
+
+Typical structure:
+
+```text
+data/raw/SynsetSignsetGermany/
+  Ogre/
+  Masks/
+  Labels/
+  CsvFiles/
+  Cycles/
+```
+
+Notes:
+
+- `Ogre/` contains the source images and per-image metadata JSON files.
+- `Masks/` and `Labels/` are used to derive bounding boxes and semantic labels.
+- Helper scripts expect the dataset under `data/raw/SynsetSignsetGermany`.
+
+### 4.1 Convert and prepare the dataset
+
+```powershell
+python scripts/convert_synset_to_yolo.py `
+  --raw data/raw/SynsetSignsetGermany `
+  --masks data/raw/SynsetSignsetGermany/Masks `
+  --semantic data/raw/SynsetSignsetGermany/Labels `
+  --out data/yolo_signs `
+  --split 0.8 0.2 0.0
+```
+
+This computes bounding boxes from masks and writes images plus `.txt` labels into `data/yolo_signs/train` and `data/yolo_signs/val`.
+
+### 4.2 Validate the dataset
+
+```bash
+python scripts/validate_yolo_dataset.py
+```
+
+What it checks:
+
+- counts for `train` and `val` images and labels
+- sample images missing labels, or labels missing images
+- basic YOLO label format issues
+
+### 4.3 Generate `data.yaml`
+
+```bash
+python scripts/create_data_yaml.py
+```
+
+Expected structure in `data/yolo_signs/data.yaml`:
+
+```yaml
+path: data/yolo_signs
+train: train/images
+val: val/images
+nc: 211
+names:
+  0: "0_Geschwindigkeit20"
+  1: "100_VerbotReiter"
+  ...
+```
+
+Important: Ultralytics accepts either a `names` list or mapping. `classes.txt` is useful for manual label lookup and visualization tooling. If your checked-in `data.yaml` differs, regenerate it with `python scripts/create_data_yaml.py`.
+
+---
+
+## 5. Training
+
+### 5.1 Example outputs
+
+![Validation batches](images/helper/val_batch1_labels.jpg)
+![Training results](images/helper/results.png)
+![Normalized confusion matrix](images/helper/confusion_matrix_normalized.png)
+
+### 5.2 Start training
+
+```bash
+python scripts/train_model/start_train.py
+```
+
+Notes:
+
+- Adjust `batch` and `imgsz` to your GPU memory.
+- The trainer initializes Weights & Biases logging.
+- Ultralytics downloads the base `yolov8m.pt` weights if they are not present locally.
+
+---
+
+## 6. Inference
+
+### 6.1 Run the wrapper
+
 ```bash
 python run_detect.py images/steileKurve.jpg --model path/to/best.pt
 ```
-**Example: with your own Image**
+
+More examples:
+
 ```bash
 python run_detect.py C:/Users/deinUserName/Downloads/image.png --model path/to/best.pt
-```
-**Example: multi-image detection**
-```bash
 python run_detect.py images/ --model path/to/best.pt
 ```
-### 5.6 Troubleshooting quick guide
-- **No detections:** try `--conf 0.01` or `conf=0.05` and `imgsz=1024`.  
-- **Detections but many false positives:** raise `conf` to `0.3–0.5`, use temporal smoothing in video (require detection in 2 consecutive frames).  
-- **Model checkpoint missing or wrong:** pass a valid local `.pt` path via `--model`. Use `yolo val model=... data=data/yolo_signs/data.yaml` to verify it.
 
-### 5.7 Detected Images
+### 6.2 Troubleshooting
+
+- No detections: try `--conf 0.01` or a larger `--imgsz`.
+- Too many false positives: raise `--conf` to around `0.3` to `0.5`.
+- Missing checkpoint: pass a valid local `.pt` path via `--model`.
+
+### 6.3 Example detections
 
 <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:flex-start;">
   <img src="images/predict/steileKurve.jpg" alt="steileKurve" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
@@ -210,34 +219,24 @@ python run_detect.py images/ --model path/to/best.pt
   <img src="images/predict/Zeichen261.jpg" alt="Zeichen261" style="width:32%; max-height:180px; object-fit:cover; border:1px solid #ddd; padding:2px;">
 </div>
 
----
-
-## 6. Inference Example
-
-Below is a minimal snippet that runs inference and draws bounding boxes labeled by class names (labels come from `classes.txt`):
+### 6.4 Minimal inference snippet
 
 ```python
 from ultralytics import YOLO
-import cv2, json, pathlib
+import cv2
 
 model = YOLO("runs/train/your_run/weights/best.pt")
-res = model("some_test_image.jpg")                   # returns results
+results = model("some_test_image.jpg")
 
-# load class names
-names = [l.strip() for l in open("data/yolo_signs/classes.txt", encoding="utf8").read().splitlines()]
+names = [line.strip() for line in open("data/yolo_signs/classes.txt", encoding="utf8")]
+image = cv2.imread("some_test_image.jpg")
 
-# draw (first result)
-boxes = res[0].boxes  # ultralytics result
-img = cv2.imread("some_test_image.jpg")
-for box in boxes:
-    x1,y1,x2,y2 = map(int, box.xyxy[0].tolist())
+for box in results[0].boxes:
+    x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
     cls = int(box.cls[0].item())
     label = names[cls] if cls < len(names) else str(cls)
-    cv2.rectangle(img, (x1,y1), (x2,y2), (0,255,0), 2)
-    cv2.putText(img, label, (x1, max(0,y1-6)), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255,255,255), 1)
-cv2.imwrite("inference_with_labels.jpg", img)
+    cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
+    cv2.putText(image, label, (x1, max(0, y1 - 6)), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 1)
+
+cv2.imwrite("inference_with_labels.jpg", image)
 ```
-
-This draws borders with the **folder/class names** (as requested) by mapping class IDs to names using `classes.txt`.
-
----
