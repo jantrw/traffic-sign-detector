@@ -26,6 +26,8 @@ This repository is built around a narrow goal: detect and classify German traffi
   <a href="images/predict/steileKurve.jpg"><img src="images/predict/steileKurve.jpg" alt="steileKurve" width="280" height="370"></a>
   <a href="images/predict/vorfahrt_blauerHimmel.jpg"><img src="images/predict/vorfahrt_blauerHimmel.jpg" alt="vorfahrt_blauerHimmel" width="280" height="370"></a>
   <a href="images/predict/wild.jpg"><img src="images/predict/wild.jpg" alt="wild" width="280" height="370"></a>
+  <a href="images/helper/results.png"><img src="images/helper/results.png" alt="training_results"></a>
+
 </p>
 
 ---
